@@ -1,5 +1,5 @@
 from django.forms import ModelForm, CheckboxSelectMultiple
-from .models import Tournament
+from .models import Tournament, Stage
 
 
 class NewTournament(ModelForm):
@@ -11,3 +11,9 @@ class NewTournament(ModelForm):
                 'style': 'list-style-type: none',
             }),
         }
+
+class NewStage(ModelForm):
+    class Meta:
+        model = Stage
+        fields = ['mode']
+
