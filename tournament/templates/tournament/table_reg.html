@@ -1,0 +1,39 @@
+{% extends 'tournament/base.html' %}
+{% load static %}
+
+{% block title %}Tournament round table{% endblock %}
+
+{% block head %}
+  <link rel="stylesheet" href={% static "tournament/tables.css" %}>
+{% endblock %}
+
+{% block content %}
+  <table class="reg-container reg-round">
+    <thead>
+      <tr class="">
+        <th>Place</th>
+        <th>Team name</th>
+        <th>Matches</th>
+        <th>Wins</th>
+        <th>Looses</th>
+        <th>Scored-Missed goals</th>
+        <th>Difference</th>
+        <th>Points</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for team in teams %}
+        <tr>
+          <td>{{ team.name }}</td>
+          <td>place</td>
+          <td>points</td>
+          <td>matches</td>
+          <td>wins</td>
+          <td>looses</td>
+          <td>{{ team.goals }}:{{ team.misses }}</td>
+          <td>Difference</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endblock %}

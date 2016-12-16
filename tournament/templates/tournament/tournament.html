@@ -1,0 +1,24 @@
+{% extends 'tournament/base.html' %}
+{% load static %}
+
+{% block title %}{{ tournament.name }}{% endblock %}
+
+{% block head %}
+{% endblock %}
+
+{% block content %}
+  <div class="container">
+    {%  if tournament.stage_set.all %}
+      {% for stage in tournament.stage_set.all %}
+        <a href="{{ stage.id }}">
+          <div class="well stage">
+            <h3>Stage {{ stage.id }}</h3>
+            <p>{{ stage.get_mode_display }}</p>
+          </div>
+        </a>
+      {% endfor %}
+    {% else %}
+      <h1 class="text-center">It's impossible, but tournament has no stages</h1>
+    {% endif %}
+  </div>
+{% endblock %}

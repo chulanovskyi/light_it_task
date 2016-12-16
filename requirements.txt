@@ -1,0 +1,9 @@
+defusedxml==0.4.1
+Django==1.10.3
+django-allauth==0.29.0
+django-picklefield==0.3.2
+oauthlib==2.0.1
+Pillow==3.4.2
+python3-openid==3.0.10
+requests==2.12.1
+requests-oauthlib==0.7.0

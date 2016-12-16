@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <link href='http://fonts.googleapis.com/css?family=Holtwood+One+SC' rel='stylesheet' type='text/css'>
+  <link href='http://fonts.googleapis.com/css?family=Kaushan+Script|Herr+Von+Muellerhoff' rel='stylesheet' type='text/css'>
+  <link href='http://fonts.googleapis.com/css?family=Abel' rel='stylesheet' type='text/css'>
+  <link href='http://fonts.googleapis.com/css?family=Istok+Web|Roboto+Condensed:700' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href={% static "tournament/libs/bootstrap/css/bootstrap.min.css" %}>
+  <link rel="stylesheet" href={% static "tournament/libs/fa/css/font-awesome.min.css" %}>
+  <link rel="stylesheet" href={% static "tournament/main.css" %}>
+  <title>{% block title %}{% endblock %}</title>
+  {% block head %}{% endblock %}
+</head>
+<body>
+  <nav class="navbar navbar-static-top navbar-inverse">
+    <div class="container">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#top_navbar">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="{% url 'main' %}">
+          <span class="hidden-xs glyphicon glyphicon-home glyph-m-size"></span>
+          <span class="visible-xs glyphicon glyphicon-home glyph-xs-size"></span>
+        </a>
+      </div>
+      <div class="navbar-collapse collapse" id="top_navbar">
+        <ul class="nav navbar-nav navbar-left text-center">
+          <li><a href="#">
+            <span class="glyphicon glyphicon-tower glyph-m-size"></span>
+            <p>Contest</p>
+          </a></li>
+          <li><a href="{% url 'players' %}">
+            <span class="glyphicon glyphicon-user glyph-m-size"></span>
+            <p>Players</p>
+          </a></li>
+          <li><a href="{% url 'about' %}">
+            <span class="glyphicon glyphicon-question-sign glyph-m-size"></span>
+            <p>About</p>
+          </a></li>
+        </ul>
+        {% if user.is_authenticated %}
+          {% load account %}
+          {% load socialaccount %}
+          <ul class="nav navbar-nav navbar-right text-center">
+            <li><a href="{% url 'profile' %}">
+              {% if user.socialaccount_set.all.0.get_avatar_url %}
+                <img src="{{ user.socialaccount_set.all.0.get_avatar_url }}" class="user-ava"/>
+              {% elif user.player.photo %}
+                <img src="{{ user.player.photo.url }}" class="user-ava">
+              {% else %}
+                <span class="fa fa-user-circle-o glyph-m-size"></span>
+              {% endif %}
+              {% firstof user.get_full_name user.username as username %}
+              <p>{{ username }}</p>
+            </a></li>
+            <li><a href="/accounts/logout">
+              <span class="fa fa-sign-out glyph-m-size"></span>
+              <p>Logout</p>
+            </a></li>
+          </ul>
+        {% else %}
+          <ul class="nav navbar-nav navbar-right text-center">
+            <li><a href="#" data-toggle="modal" data-target="#login_modal">
+              <span class="fa fa-sign-in glyph-m-size"></span>
+              <p>Login</p>
+            </a></li>
+          </ul>
+        {% endif %}
+      </div>
+    </div>
+  </nav>
+  <div class="modal fade" id="login_modal" tabindex="-1" role="dialog" aria-labelledby="login_modal_lbl">
+    <div class="modal-dialog modal-sm" role="document">
+      <div class="modal-content modal-transparent">
+        <div class="modal-header text-center">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                  aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title" id="login_modal_lbl">Login</h4>
+        </div>
+        <div class="modal-body text-center">
+          <a href="/accounts/facebook/login/?process=login"><span class="fa fa-facebook glyph-m-size"></span></a>
+          <a href="/accounts/vk/login/?process=login"><span class="fa fa-vk glyph-m-size"></span></a>
+          <a href="/accounts/login"><span class="fa fa-user glyph-m-size"></span></a>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  {% block content %}{% endblock %}
+  <script src={% static "tournament/libs/jquery-3.1.1.min.js" %}></script>
+  <script src={% static "tournament/libs/bootstrap/js/bootstrap.min.js" %}></script>
+  <script src={% static "tournament/js/common.js" %}></script>
+</body>
+</html>

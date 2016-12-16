@@ -1,0 +1,12 @@
+{% extends 'tournament/base.html' %}
+
+{% block title %}{{ profile }}{% endblock %}
+
+{% block content %}
+  <div class="text-center">
+    {% firstof full_name profile.user.username as name %}
+    <p><strong>{{ name }}</strong></p>
+    <p><em>{{ profile.email }}</em></p>
+    <img style="width: 200px" src="{{ profile.photo.url }}" alt="{{ profile.photo }}"/><br/>
+  </div>
+{% endblock %}

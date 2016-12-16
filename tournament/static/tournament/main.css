@@ -1,0 +1,56 @@
+/* NavBar */
+.navbar-nav p{
+  margin-bottom: 0;
+}
+.navbar-nav li img{
+  margin: 0 5px;
+}
+.glyph-m-size{
+  font-size: 49px;
+}
+.glyph-xs-size{
+  font-size: 28px;
+}
+.fa{
+  color: darkgray;
+}
+.modal-body .fa{
+  margin: 0 5px;
+}
+.user-ava{
+  border-radius: 50%;
+  height: 50px;
+  width: 50px;
+}
+/*---*/
+/*Create tournament*/
+.btn-admin{
+  padding: 2px 10px;
+  height: 30px;
+}
+.modal-body form ul li{
+  list-style-type: none;
+}
+.modal-body form ul {
+  height: 100px;
+  overflow: scroll;
+  overflow-x: hidden;
+}
+/*---*/
+.btn-delete{
+  width: 5%;
+}
+/* about */
+.help-text{
+  font-size: 18px;
+  text-align: center;
+}
+/*---*/
+
+/* tournament page */
+.stage{
+  display: inline-block;
+  width: 200px;
+  text-align: center;
+}
+/*---*/

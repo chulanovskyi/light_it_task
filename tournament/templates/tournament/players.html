@@ -1,0 +1,22 @@
+{% extends 'tournament/base.html' %}
+
+{% block title %}About{% endblock %}
+
+{% block content %}
+  <div class="container-fluid players">
+    <table class="table table-responsive table-bordered">
+      <thead>
+      <tr>
+        <th>Players list:</th>
+      </tr>
+      </thead>
+      <tbody class="main-table-body">
+      {% for player in players %}
+        <tr>
+          <td>{{ forloop.counter }}. {{ player.first_name }} {{ player.last_name }}</td>
+        </tr>
+      {% endfor %}
+      </tbody>
+    </table>
+  </div>
+{% endblock %}

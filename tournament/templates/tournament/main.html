@@ -1,0 +1,73 @@
+{% extends 'tournament/base.html' %}
+{% load static %}
+
+{% block title %}Welcome!{% endblock %}
+
+{% block head %}
+  <link rel="stylesheet" href={% static "tournament/tables.css" %}>
+{% endblock %}
+
+{% block content %}
+  <div class="container-fluid text-center">
+    {% if is_tourn_admin%}
+      <a href="#" data-toggle="modal" data-target="#create_modal">
+        <div class="btn btn-lg btn-success btn-admin">
+          <p>Create tournament</p>
+        </div>
+      </a>
+    {% endif %}
+    {% if tournaments %}
+      <table class="table table-responsive table-bordered">
+        <thead class="main-table-head">
+        <tr>
+          {% if is_tourn_admin %}
+            <th>Edit</th>
+          {% endif %}
+          <th>Name</th>
+          <th>Stages</th>
+          <th>Players</th>
+          <th>Status</th>
+        </tr>
+        </thead>
+        <tbody class="main-table-body">
+        {% for tourn in tournaments %}
+          <tr class="main-table-{{ tourn.status }} tourn-link" data-href="{{ tourn.name }}">
+            {% if is_tourn_admin %}
+              <td class="btn-delete">
+                <a href="#">
+                  <div class="btn btn-danger btn-admin">
+                    <p>Delete</p>
+                  </div>
+                </a>
+              </td>
+            {% endif %}
+            <td>{{ tourn.name }}</td>
+            <td>{{ tourn.stage_set.count }}</td>
+            <td>{{ tourn.players.count }}</td>
+            <td>{{ tourn.get_status_display }}</td>
+          </tr>
+        {% endfor %}
+        </tbody>
+      </table>
+    {% else %}
+      <h2>Database is empty</h2>
+    {% endif %}
+    <div class="modal fade" id="create_modal" tabindex="-1" role="dialog" aria-labelledby="create_modal_lbl">
+      <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content modal-transparent">
+          <div class="modal-header text-center">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" id="create_modal_lbl">New tournament</h4>
+          </div>
+          <div class="modal-body text-left">
+            <form method="POST" action="{% url 'create' %}">
+              {% csrf_token %}
+              {{ new_tourn_form.as_p }}
+              <input type="submit" value="Create">
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}
