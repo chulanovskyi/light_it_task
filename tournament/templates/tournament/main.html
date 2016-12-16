@@ -63,6 +63,7 @@
             <form method="POST" action="{% url 'create' %}">
               {% csrf_token %}
               {{ new_tourn_form.as_p }}
+              {{ new_stage_form.as_p }}
               <input type="submit" value="Create">
             </form>
           </div>
