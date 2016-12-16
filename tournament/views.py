@@ -48,9 +48,13 @@ def table(request, stage_id, tournament_name):
 def edit_profile(request):
     if request.user.is_anonymous:
         return redirect('main')
-    profile = Player.objects.get(user=request.user)
-    full_name = '%s %s' % (profile.first_name, profile.last_name)
-    context = {'profile': profile, 'full_name': full_name}
+    player = Player.objects.get(user=request.user)
+    full_name = '%s %s' % (player.first_name, player.last_name)
+    context = {'player': player, 'full_name': full_name}
+    social_acc = request.user.socialaccount_set.all()
+    if social_acc:
+        social_ava = social_acc[0].get_avatar_url()
+        context['social_ava'] = social_ava
     return render(request, 'tournament/player_profile.html', context)
 
 
