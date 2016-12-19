@@ -1,4 +1,3 @@
-from django.contrib.auth.models import User
 from django.shortcuts import render, redirect
 from .models import Tournament, Stage, Player
 from .forms import NewTournament, NewStage
@@ -29,8 +28,7 @@ def create_tournament(request):
         new_tournament_id = stage_form.save(commit=False)
         new_tournament_id.tournament_id = tournament_form.id
         new_tournament_id.save()
-        stage_form.save_m2m()
-        return redirect('main')
+        stage_form.save()
     return redirect('main')
 
 
@@ -74,6 +72,3 @@ def players(request):
     get_players = Player.objects.all()
     context = {'players': get_players}
     return render(request, 'tournament/players.html', context)
-
-
-

@@ -12,8 +12,8 @@ class NewTournament(ModelForm):
             }),
         }
 
+
 class NewStage(ModelForm):
     class Meta:
         model = Stage
         fields = ['mode']
-
