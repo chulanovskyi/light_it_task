@@ -23,11 +23,38 @@
   width: 50px;
 }
 /*---*/
-/*Create tournament*/
-.btn-admin{
+/*Tournaments table*/
+.btn-create {
   padding: 2px 10px;
+  margin-bottom: 20px;
   height: 30px;
 }
+.btn-delete{
+  width: 5%;
+}
+.main-table-head tr th{
+  text-align: center;
+}
+
+.main-table-NS{
+  background: #FFF;
+}
+
+.main-table-S{
+  background-color: #9E9;
+}
+
+.main-table-E{
+  background-color: #F88;
+}
+
+.tourn-link:hover{
+  cursor: pointer;
+  background: rgba(255, 255, 255, 0.5);
+  transition: 0.5s;
+}
+/*---*/
+/*Modal create*/
 .modal-body form ul li{
   list-style-type: none;
 }
@@ -37,9 +64,6 @@
   overflow-x: hidden;
 }
 /*---*/
-.btn-delete{
-  width: 5%;
-}
 /* about */
 .help-text{
   font-size: 18px;

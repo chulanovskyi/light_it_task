@@ -3,15 +3,11 @@
 
 {% block title %}Welcome!{% endblock %}
 
-{% block head %}
-  <link rel="stylesheet" href={% static "tournament/tables.css" %}>
-{% endblock %}
-
 {% block content %}
   <div class="container-fluid text-center">
     {% if is_tourn_admin%}
       <a href="#" data-toggle="modal" data-target="#create_modal">
-        <div class="btn btn-lg btn-success btn-admin">
+        <div class="btn btn-lg btn-success btn-create">
           <p>Create tournament</p>
         </div>
       </a>
@@ -34,11 +30,15 @@
           <tr class="main-table-{{ tourn.status }} tourn-link" data-href="{{ tourn.name }}">
             {% if is_tourn_admin %}
               <td class="btn-delete">
-                <a href="#">
+                <form method="POST" onsubmit="return confirm('Sure? Action cannot be undone')" action="delete/{{ tourn.id }}/" >
+                  {% csrf_token %}
+                  <input type="submit" value="Delete">
+                </form>
+                <!--<a href="/tournament/delete/{{ tourn.id }}">
                   <div class="btn btn-danger btn-admin">
                     <p>Delete</p>
                   </div>
-                </a>
+                </a>-->
               </td>
             {% endif %}
             <td>{{ tourn.name }}</td>
@@ -59,11 +59,13 @@
             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
             <h4 class="modal-title" id="create_modal_lbl">New tournament</h4>
           </div>
-          <div class="modal-body text-left">
-            <form method="POST" action="{% url 'create' %}">
+          <div class="modal-body">
+            <form method="POST" action="{% url 'create' %}" id="create-form">
               {% csrf_token %}
-              {{ new_tourn_form.as_p }}
-              {{ new_stage_form.as_p }}
+              <div class="create_tourn text-left">
+                {{ new_tourn_form.as_p }}
+                {{ new_stage_form.as_p }}
+              </div>
               <input type="submit" value="Create">
             </form>
           </div>

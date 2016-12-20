@@ -32,6 +32,12 @@ def create_tournament(request):
     return redirect('main')
 
 
+def delete_tournament(request, tournament_id):
+    tourn = Tournament.objects.get(id=tournament_id)
+    tourn.delete()
+    return redirect('main')
+
+
 def create_teams(request):
     pass
 
@@ -42,9 +48,10 @@ def tournament(request, tournament_name):
     return render(request, 'tournament/tournament.html', context)
 
 
-def table(request, stage_id, tournament_name):
+def table(request, tournament_name, stage_id):
     get_stage = Stage.objects.get(id=stage_id)
-    context = {'stage': get_stage}
+    print(tournament_name)
+    context = {'stage': get_stage, 't_name': tournament_name}
     if get_stage.mode == "PO":
         return render(request, 'tournament/table_po.html', context)
     else:

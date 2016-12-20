@@ -1,7 +1,7 @@
 {% extends 'tournament/base.html' %}
 {% load static %}
 
-{% block title %}{{ tournament.name }}{% endblock %}
+{% block title %}{{ t_name }} | {{ stage.get_mode_display }}{% endblock %}
 
 {% block head %}
   <link rel="stylesheet" href={% static "tournament/tables.css" %}>
