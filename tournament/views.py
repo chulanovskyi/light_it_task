@@ -1,7 +1,8 @@
 from django.shortcuts import render, redirect
-from .models import Tournament, Stage, Player
+from .models import Tournament, Stage, Player, Team
 from .forms import NewTournament, NewStage
 from django.views.decorators.http import require_POST
+import random
 
 
 def main(request):
@@ -38,8 +39,31 @@ def delete_tournament(request, tournament_id):
     return redirect('main')
 
 
-def create_teams(request):
-    pass
+def create_teams(request, tournament_id):
+    tournament = Tournament.objects.get(id=tournament_id)
+    players = tournament.players.all()
+    if Team.objects.filter(tournament_id=tournament_id): #проверка на наличие команд в данном турнире
+        pass
+    else:
+        players_list = []
+        for player in players:
+            players_list.append('{0} {1}'.format(player.first_name, player.last_name))
+        teams = []
+        random.shuffle(players_list) #перемешал список плееров
+        while True:
+            try:
+                player_one = players_list.pop()
+                player_two = players_list.pop()
+            except IndexError:
+                break
+            team = [player_one, player_two]
+            teams.append(team)
+            team = []
+        for team in teams:
+            team_create = Team(name='{0} {1}'.format(*team), tournament=tournament)
+            team_create.save()
+    return redirect('main')
+
 
 
 def tournament(request, tournament_name):
@@ -50,8 +74,14 @@ def tournament(request, tournament_name):
 
 def table(request, tournament_name, stage_id):
     get_stage = Stage.objects.get(id=stage_id)
+    tournament_id = get_stage.tournament_id
+    teams = Team.objects.filter(tournament_id=tournament_id)
     print(tournament_name)
-    context = {'stage': get_stage, 't_name': tournament_name}
+    context = {
+        'stage': get_stage,
+        't_name': tournament_name,
+        'teams': teams
+    }
     if get_stage.mode == "PO":
         return render(request, 'tournament/table_po.html', context)
     else:
