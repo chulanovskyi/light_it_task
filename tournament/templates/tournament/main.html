@@ -18,6 +18,7 @@
         <tr>
           {% if is_tourn_admin %}
             <th>Edit</th>
+            <th>Generate teams</th>
           {% endif %}
           <th>Name</th>
           <th>Stages</th>
@@ -39,6 +40,12 @@
                     <p>Delete</p>
                   </div>
                 </a>-->
+              </td>
+              <td class="btn-delete">
+                <form method="POST" onsubmit="return alert('Teams ready!')" action="generate/{{ tourn.id }}/" >
+                  {% csrf_token %}
+                  <input type="submit" value="Generate teams">
+                </form>
               </td>
             {% endif %}
             <td>{{ tourn.name }}</td>
