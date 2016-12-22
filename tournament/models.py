@@ -1,5 +1,5 @@
 from django.db import models
-from django.contrib.auth.models import AbstractBaseUser, User
+from django.contrib.auth.models import User
 from picklefield.fields import PickledObjectField
 from django.db.models.signals import m2m_changed, post_save
 from django.core.exceptions import ValidationError

@@ -42,7 +42,7 @@ def delete_tournament(request, tournament_id):
 def create_teams(request, tournament_id):
     tournament = Tournament.objects.get(id=tournament_id)
     players = tournament.players.all()
-    if Team.objects.filter(tournament_id=tournament_id): #проверка на наличие команд в данном турнире
+    if Team.objects.filter(tournament_id=tournament_id):  # проверка на наличие команд в данном турнире
         pass
     else:
         players_list = []
@@ -65,7 +65,6 @@ def create_teams(request, tournament_id):
     return redirect('main')
 
 
-
 def tournament(request, tournament_name):
     get_tournament = Tournament.objects.get(name=tournament_name)
     context = {'tournament': get_tournament}
@@ -76,7 +75,6 @@ def table(request, tournament_name, stage_id):
     get_stage = Stage.objects.get(id=stage_id)
     tournament_id = get_stage.tournament_id
     teams = Team.objects.filter(tournament_id=tournament_id)
-    print(tournament_name)
     context = {
         'stage': get_stage,
         't_name': tournament_name,

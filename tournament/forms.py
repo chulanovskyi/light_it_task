@@ -8,7 +8,7 @@ class NewTournament(ModelForm):
         exclude = ['pk']
         widgets = {
             'players': CheckboxSelectMultiple(attrs={
-                'style': 'list-style-type: none',
+                'style': 'list-style-type: none; margin: 0; padding: 0; vertical-align: center;',
             }),
         }
 
