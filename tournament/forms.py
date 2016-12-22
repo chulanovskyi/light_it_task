@@ -1,5 +1,11 @@
 from django.forms import ModelForm, CheckboxSelectMultiple
-from .models import Tournament, Stage
+from .models import Tournament, Player, Stage
+
+
+class NewPlayer(ModelForm):
+    class Meta:
+        model = Player
+        exclude = ['pk']
 
 
 class NewTournament(ModelForm):

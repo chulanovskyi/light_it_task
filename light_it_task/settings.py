@@ -133,7 +133,7 @@ VK_KEY = 'RVOQtGVScBSHMWqyo1l9'
 FB_ID = 1310090682374732
 FB_KEY = '25947fd470d66a39bf6267a5abb50700'
 
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_BACKEND = 'django.core.mail.backends.dummy.EmailBackend'
 EMAIL_USE_SSL = True
 EMAIL_PORT = 465
 EMAIL_HOST = 'smtp.gmail.com'
