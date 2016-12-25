@@ -10,7 +10,7 @@ def main(request):
     context = {
         'tournaments': tournaments,
     }
-    is_tourn_admin = request.user.groups.filter(name='tournament_admin')
+    is_tourn_admin = request.user.groups.filter(name='tournament_admin').exists()
     if is_tourn_admin:
         tournament_form = NewTournament()
         stage_form = NewStage()
@@ -34,8 +34,7 @@ def create_tournament(request):
 
 
 def delete_tournament(request, tournament_id):
-    tourn = Tournament.objects.get(id=tournament_id)
-    tourn.delete()
+    Tournament.objects.filter(id=tournament_id).delete()
     return redirect('main')
 
 
@@ -92,9 +91,9 @@ def edit_profile(request):
     player = Player.objects.get(user=request.user)
     full_name = '%s %s' % (player.first_name, player.last_name)
     context = {'player': player, 'full_name': full_name}
-    social_acc = request.user.socialaccount_set.all()
+    social_acc = request.user.socialaccount_set.all().first()
     if social_acc:
-        social_ava = social_acc[0].get_avatar_url()
+        social_ava = social_acc.get_avatar_url()
         context['social_ava'] = social_ava
     return render(request, 'tournament/player_profile.html', context)
 
