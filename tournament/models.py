@@ -18,7 +18,7 @@ class Player(models.Model):
     last_name = models.CharField(max_length=30)
     email = models.EmailField()
     photo = models.ImageField(null=True, blank=True)
-    rank = models.PositiveSmallIntegerField(editable=False, default=30)
+    rank = models.PositiveSmallIntegerField(default=30)
 
     def __str__(self):
         return '{f_n} {l_n}'.format(f_n=self.first_name, l_n=self.last_name)

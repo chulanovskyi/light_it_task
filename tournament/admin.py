@@ -7,7 +7,8 @@ from django import forms
 from django.utils.translation import ugettext_lazy as _
 
 
-admin.site.register((Player, Tournament, Team, Round, Match, Stage))
+class PlayerAdmin(admin.ModelAdmin):
+    exclude = ('rank',)
 
 
 class UserCreationFormExtended(UserCreationForm):
@@ -25,5 +26,7 @@ UserAdmin.add_fieldsets = (
     }),
 )
 
+admin.site.register(Player, PlayerAdmin)
+admin.site.register((Tournament, Team, Round, Match, Stage))
 admin.site.unregister(User)
 admin.site.register(User, UserAdmin)

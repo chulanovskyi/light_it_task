@@ -40,28 +40,28 @@ def delete_tournament(request, tournament_id):
 
 
 def create_teams(request, tournament_id):
+    if Team.objects.filter(tournament_id=tournament_id).exists():
+        return redirect('main')
     tournament = Tournament.objects.get(id=tournament_id)
-    players = tournament.players.all()
-    if Team.objects.filter(tournament_id=tournament_id):  # проверка на наличие команд в данном турнире
-        pass
-    else:
-        players_list = []
-        for player in players:
-            players_list.append('{0} {1}'.format(player.first_name, player.last_name))
-        teams = []
-        random.shuffle(players_list) #перемешал список плееров
-        while True:
-            try:
-                player_one = players_list.pop()
-                player_two = players_list.pop()
-            except IndexError:
-                break
-            team = [player_one, player_two]
-            teams.append(team)
-            team = []
-        for team in teams:
-            team_create = Team(name='{0} {1}'.format(*team), tournament=tournament)
-            team_create.save()
+    players = tournament.players.all().order_by('rank')
+    half = int(len(players)/2)
+    weak, strong = (players[:half], players[half:])
+    while weak:
+        if random.random() > 0.8:
+            p1 = weak.pop(random.randrange(len(weak)))  # need to rid of len
+            p2 = strong.pop(random.randrange(len(strong)))
+        else:
+            p1 = weak.pop(0)
+            p2 = strong.pop()
+        team_name = '{p1_f} {p1_l} | {p2_f} {p2_l}'.format(
+            p1_f=p1.first_name,
+            p1_l=p1.last_name,
+            p2_f=p2.first_name,
+            p2_l=p2.last_name,)
+        team = Team(name=team_name, tournament=tournament)
+        team.save()  # maybe there is better way without using save() two times
+        team.players.add(p1, p2)
+        team.save()
     return redirect('main')
 
 

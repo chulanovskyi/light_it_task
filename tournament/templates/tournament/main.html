@@ -29,12 +29,12 @@
         {% for tourn in tournaments %}
           <tr class="main-table-{{ tourn.status }} tourn-link" data-href="{{ tourn.name }}">
             {% if is_tourn_admin %}
-              <td class="btn-edit">
+              <td class="btn-edit remove-action">
                 <form method="POST" action="delete/{{ tourn.id }}/" >
                   {% csrf_token %}
                   <input type="submit" value="Delete">
                 </form>
-                <form method="POST" onsubmit="return alert('Teams ready!')" action="generate/{{ tourn.id }}/" >
+                <form method="POST" action="generate/{{ tourn.id }}/" >
                   {% csrf_token %}
                   <input type="submit" value="Generate teams">
                 </form>
