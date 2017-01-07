@@ -74,7 +74,7 @@ class Round(models.Model):
 
     def __str__(self):
         return '{tour_name}: stage {st_id}({st_mode}) | round {round_id}'.format(
-            tour_name=self.tournament.name,
+            tour_name=self.stage.tournament.name,
             st_id=self.stage.id,
             st_mode=self.stage.mode,
             round_id=self.id)
@@ -90,7 +90,7 @@ class Match(models.Model):
 
     def __str__(self):
         return '{tour_name}: round {round_id} | match {match_id}'.format(
-            tour_name=self.round.tournament.name,
+            tour_name=self.round.stage.tournament.name,
             round_id=self.round.id,
             match_id=self.id)
 
