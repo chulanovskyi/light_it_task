@@ -19,9 +19,9 @@
         <a href="{% url 'show' tournament_name stage.id %}"><p>Match-list</p></a>
         </div>
         <td class="btn-edit remove-action">
-          <form method="POST" action="matchs/{{ stage.id }}/">
+          <form method="POST" action="matches/{{ stage.id }}/">
             {% csrf_token %}
-            <input type="submit" value="Generate matchs">
+            <input type="submit" value="Generate matches">
           </form>
         </td>
       {% endfor %}
