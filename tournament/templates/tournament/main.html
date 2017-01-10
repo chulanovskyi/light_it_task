@@ -32,11 +32,11 @@
               <td class="btn-edit remove-action">
                 <form method="POST" action="delete/{{ tourn.id }}/" >
                   {% csrf_token %}
-                  <input type="submit" value="Delete">
+                  <input type="submit" class="btn btn-primary btn-sm" value="Delete">
                 </form>
                 <form method="POST" action="generate/{{ tourn.id }}/" >
                   {% csrf_token %}
-                  <input type="submit" value="Generate teams">
+                  <input type="submit" class="btn btn-primary btn-sm" value="Generate teams">
                 </form>
               </td>
             {% endif %}
