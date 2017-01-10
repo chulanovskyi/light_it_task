@@ -16,7 +16,7 @@
         <th>Matches</th>
         <th>Wins</th>
         <th>Looses</th>
-        <th>Scored-Missed goals</th>
+        <th>Scored<br>Missed</th>
         <th>Difference</th>
         <th>Points</th>
       </tr>
@@ -24,14 +24,14 @@
     <tbody>
       {% for team in teams %}
         <tr>
+          <td>{{ forloop.counter }}</td>
           <td>{{ team.name }}</td>
-          <td>place</td>
-          <td>points</td>
           <td>matches</td>
           <td>wins</td>
           <td>looses</td>
           <td>{{ team.goals }}:{{ team.misses }}</td>
           <td>Difference</td>
+          <td>points</td>
         </tr>
       {% endfor %}
     </tbody>

@@ -8,14 +8,22 @@
 
 {% block content %}
   <div class="container">
-    {%  if tournament.stage_set.all %}
-      {% for stage in tournament.stage_set.all %}
+    {% if stages %}
+      {% for stage in stages %}
         <a href="{{ stage.id }}">
           <div class="well stage">
             <h3>Stage {{ stage.id }}</h3>
-            <p>{{ stage.get_mode_display }}</p>
-          </div>
         </a>
+        <p>{{ stage.get_mode_display }}</p>
+        <p>Round amount - {{ stage.round_set.count }}</p>
+        <a href="{% url 'show' tournament_name stage.id %}"><p>Match-list</p></a>
+        </div>
+        <td class="btn-edit remove-action">
+          <form method="POST" action="matches/{{ stage.id }}/">
+            {% csrf_token %}
+            <input type="submit" value="Generate matches">
+          </form>
+        </td>
       {% endfor %}
     {% endif %}
   </div>

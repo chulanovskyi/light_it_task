@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from .models import Tournament, Stage, Player, Team
+from .models import Tournament, Stage, Player, Team, Round, Match
 from .forms import NewTournament, NewStage
 from django.views.decorators.http import require_POST
 import random
@@ -29,7 +29,9 @@ def create_tournament(request):
         new_tournament_id = stage_form.save(commit=False)
         new_tournament_id.tournament_id = tournament_form.id
         new_tournament_id.save()
-        stage_form.save()
+        stage = stage_form.save()
+        round = Round(stage_id=stage.id)
+        round.save()
     return redirect('main')
 
 
@@ -52,11 +54,11 @@ def create_teams(request, tournament_id):
         else:
             p1 = weak.pop(0)
             p2 = strong.pop()
-        team_name = '{p1_f} {p1_l} | {p2_f} {p2_l}'.format(
+        team_name = '{p1_f} {p1_l}. | {p2_f} {p2_l}.'.format(
             p1_f=p1.first_name,
-            p1_l=p1.last_name,
+            p1_l=p1.last_name[0],
             p2_f=p2.first_name,
-            p2_l=p2.last_name,)
+            p2_l=p2.last_name[0],)
         team = Team(name=team_name, tournament=tournament)
         team.save()  # maybe there is better way without using save() two times
         team.players.add(p1, p2)
@@ -66,7 +68,12 @@ def create_teams(request, tournament_id):
 
 def tournament(request, tournament_name):
     get_tournament = Tournament.objects.get(name=tournament_name)
-    context = {'tournament': get_tournament}
+    get_stages = get_tournament.stage_set.all()
+    context = {
+        'tournament': get_tournament,
+        'tournament_name': tournament_name,
+        'stages': get_stages
+    }
     return render(request, 'tournament/tournament.html', context)
 
 
@@ -106,3 +113,41 @@ def players(request):
     get_players = Player.objects.all()
     context = {'players': get_players}
     return render(request, 'tournament/players.html', context)
+
+
+def create_matches(requests, tournament_name, stage_id):
+    get_stage = Stage.objects.get(id=stage_id)
+    tournament_id = get_stage.tournament_id
+    teams = Team.objects.filter(tournament_id=tournament_id)
+    rounds = Round.objects.filter(stage_id=stage_id)
+    if not Match.objects.filter(round_id=rounds[0].id).exists():
+        matches = match_generator(list(teams))
+        for team in matches:
+            obj_match = Match(round=rounds[0])
+            obj_match.save()
+            obj_match.teams.add(team[0],team[1])
+    return redirect('tournament', tournament_name)
+
+
+def show_matches(requests, tournament_name, stage_id):
+    rounds = Round.objects.filter(stage_id=stage_id)
+    matches_list = Match.objects.filter(round_id=rounds[0].id)
+    teams_in_match =[]
+    for match in matches_list:
+        pretty_teams = '{0} vs {1}'.format(*match.teams.all())
+        teams_in_match.append(pretty_teams)
+    context = {
+        'teams': teams_in_match,
+        'tournament_name': tournament_name,
+        'stage_id': stage_id,
+    }
+    return render(requests, 'tournament/matches.html', context)
+
+
+def match_generator(teams):
+    match = []
+    while teams:
+        team1 = teams.pop()
+        for team2 in teams:
+            match.append([team1, team2])
+    return match

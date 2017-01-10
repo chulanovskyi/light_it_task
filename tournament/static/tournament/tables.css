@@ -214,7 +214,6 @@
 
 /* regular table */
 .reg-container {
-  text-align: left;
   overflow: hidden;
   width: 80%;
   margin: 0 auto;
@@ -235,13 +234,13 @@
 .reg-container th{
   font-weight: bold;
   font-size: 15px;
-  text-align: center;
   color: #5666c9;
 }
 
 .reg-container td {
   font-weight: normal;
   font-size: 15px;
+  text-align: left;
 }
 
 .reg-container td,
