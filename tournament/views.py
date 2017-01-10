@@ -54,11 +54,11 @@ def create_teams(request, tournament_id):
         else:
             p1 = weak.pop(0)
             p2 = strong.pop()
-        team_name = '{p1_f} {p1_l} | {p2_f} {p2_l}'.format(
+        team_name = '{p1_f} {p1_l}. | {p2_f} {p2_l}.'.format(
             p1_f=p1.first_name,
-            p1_l=p1.last_name,
+            p1_l=p1.last_name[0],
             p2_f=p2.first_name,
-            p2_l=p2.last_name,)
+            p2_l=p2.last_name[0],)
         team = Team(name=team_name, tournament=tournament)
         team.save()  # maybe there is better way without using save() two times
         team.players.add(p1, p2)
