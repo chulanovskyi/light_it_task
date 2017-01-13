@@ -115,7 +115,7 @@ def players(request):
     return render(request, 'tournament/players.html', context)
 
 
-def create_matches(requests, tournament_name, stage_id):
+def create_matches(request, tournament_name, stage_id):
     get_stage = Stage.objects.get(id=stage_id)
     tournament_id = get_stage.tournament_id
     teams = Team.objects.filter(tournament_id=tournament_id)
@@ -125,14 +125,14 @@ def create_matches(requests, tournament_name, stage_id):
         for team in matches:
             obj_match = Match(round=rounds[0])
             obj_match.save()
-            obj_match.teams.add(team[0],team[1])
+            obj_match.teams.add(team[0], team[1])
     return redirect('tournament', tournament_name)
 
 
 def show_matches(requests, tournament_name, stage_id):
     rounds = Round.objects.filter(stage_id=stage_id)
     matches_list = Match.objects.filter(round_id=rounds[0].id)
-    teams_in_match =[]
+    teams_in_match = []
     for match in matches_list:
         pretty_teams = '{0} vs {1}'.format(*match.teams.all())
         teams_in_match.append(pretty_teams)
