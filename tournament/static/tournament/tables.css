@@ -268,3 +268,14 @@
   font-weight:bold;
 }
 /*---*/
+
+/*- Matches table -*/
+
+td.score {
+  float: right;
+}
+.match {
+  width:100%;
+  background-color: #e8e8e8;
+  box-shadow: 0px 0px 10px 0px black;
+}
