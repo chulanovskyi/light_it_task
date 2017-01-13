@@ -129,7 +129,7 @@ def create_matches(request, tournament_name, stage_id):
     return redirect('tournament', tournament_name)
 
 
-def show_matches(requests, tournament_name, stage_id):
+def show_matches(request, tournament_name, stage_id):
     rounds = Round.objects.filter(stage_id=stage_id)
     matches_list = Match.objects.filter(round_id=rounds[0].id)
     teams_in_match = []
@@ -141,7 +141,7 @@ def show_matches(requests, tournament_name, stage_id):
         'tournament_name': tournament_name,
         'stage_id': stage_id,
     }
-    return render(requests, 'tournament/matches.html', context)
+    return render(request, 'tournament/matches.html', context)
 
 
 def match_generator(teams):
