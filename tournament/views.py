@@ -123,7 +123,10 @@ def create_matches(request, tournament_name, stage_id):
     if not Match.objects.filter(round_id=rounds[0].id).exists():
         matches = match_generator(list(teams))
         for team in matches:
-            obj_match = Match(round=rounds[0])
+            obj_match = Match(round=rounds[0],
+                              team_1_score='%d:0' % team[0].id,
+                              team_2_score='%d:0' % team[1].id,
+                              )
             obj_match.save()
             obj_match.teams.add(team[0], team[1])
     return redirect('tournament', tournament_name)
@@ -134,8 +137,9 @@ def show_matches(requests, tournament_name, stage_id):
     matches_list = Match.objects.filter(round_id=rounds[0].id)
     render_matches = []
     for match in matches_list:
-        teams_and_match = [match.teams.all(), match]
+        teams_and_match = [match.teams.all(), match, match.get_match_result()]
         render_matches.append(teams_and_match)
+
     context = {
         'render_matches': render_matches,
         'tournament_name': tournament_name,

@@ -73,14 +73,21 @@ class Round(models.Model):
 class Match(models.Model):
     round = models.ForeignKey(Round, on_delete=models.CASCADE)
     teams = models.ManyToManyField(Team)
-    team_1_score = models.PositiveSmallIntegerField(default=0)
-    team_2_score = models.PositiveSmallIntegerField(default=0)
+    team_1_score = models.CharField(max_length=30)
+    team_2_score = models.CharField(max_length=30)
 
     def __str__(self):
         return '{tour_name}: round {round_id} | match {match_id}'.format(
             tour_name=self.round.stage.tournament.name,
             round_id=self.round.id,
             match_id=self.id)
+
+    def get_match_result(self):
+        id_score_1 = self.team_1_score.split(':')
+        id_score_2 = self.team_2_score.split(':')
+        result = {int(id_score_1[0]): int(id_score_1[1]),
+                  int(id_score_2[0]): int(id_score_2[1])}
+        return result
 
     class Meta:
         verbose_name_plural = 'matches'
