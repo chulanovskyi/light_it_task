@@ -114,7 +114,7 @@ LOGIN_REDIRECT_URL = '/tournament/'
 ACCOUNT_LOGOUT_ON_GET = True
 ACCOUNT_LOGOUT_REDIRECT_URL = '/tournament/'
 ACCOUNT_EMAIL_VERIFICATION = 'none'
-
+ACCOUNT_SIGNUP_FORM_CLASS = 'tournament.forms.NewPlayer'
 
 SOCIALACCOUNT_PROVIDERS = {
     'facebook': {

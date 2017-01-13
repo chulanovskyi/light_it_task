@@ -3,6 +3,10 @@
 
 {% block title %}Welcome!{% endblock %}
 
+{% block head %}
+  <script src={% static "tournament/js/create_validation.js" %}></script>
+{% endblock %}
+
 {% block content %}
   <div class="container-fluid text-center">
     {% if is_tourn_admin%}

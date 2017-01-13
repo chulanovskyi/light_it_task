@@ -1,6 +1,5 @@
 from django.db import models
 from django.contrib.auth.models import User
-from picklefield.fields import PickledObjectField
 from django.db.models.signals import m2m_changed, post_save
 from django.core.exceptions import ValidationError
 
@@ -23,9 +22,6 @@ class Player(models.Model):
     def __str__(self):
         return '{f_n} {l_n}'.format(f_n=self.first_name, l_n=self.last_name)
 
-    class Meta:
-        pass
-
 
 class Tournament(models.Model):
     name = models.CharField(max_length=200)
@@ -34,9 +30,6 @@ class Tournament(models.Model):
 
     def __str__(self):
         return self.name
-
-    class Meta:
-        pass
 
 
 class Team(models.Model):
@@ -48,9 +41,6 @@ class Team(models.Model):
 
     def __str__(self):
         return self.name
-
-    class Meta:
-        pass
 
 
 class Stage(models.Model):
@@ -79,14 +69,12 @@ class Round(models.Model):
             st_mode=self.stage.mode,
             round_id=self.id)
 
-    class Meta:
-        pass
-
 
 class Match(models.Model):
     round = models.ForeignKey(Round, on_delete=models.CASCADE)
     teams = models.ManyToManyField(Team)
-    score = PickledObjectField()
+    team_1_score = models.PositiveSmallIntegerField(default=0)
+    team_2_score = models.PositiveSmallIntegerField(default=0)
 
     def __str__(self):
         return '{tour_name}: round {round_id} | match {match_id}'.format(
@@ -114,5 +102,6 @@ post_save.connect(new_player, sender=User)
 def teams_changed(sender, **kwargs):
     if kwargs['instance'].teams.count() > 2:
         raise ValidationError("You can't assign more than two teams")
+
 
 m2m_changed.connect(teams_changed, sender=Match.teams.through)

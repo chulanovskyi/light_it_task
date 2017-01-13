@@ -1,25 +1,29 @@
 {% extends 'tournament/base.html' %}
 
-{% block title %}Matchs{% endblock %}
+{% block title %}Matches{% endblock %}
 
 {% block content %}
   <div class="container-fluid players">
-  {% if teams %}
+  {% if render_matches %}
     <table class="table table-responsive table-bordered">
       <thead>
       <tr>
         <th>Matches list:</th>
+        <th>Team 1</th>
+        <th>Team 2</th>
       </tr>
       </thead>
       <tbody class="main-table-body">
-        {% for team in teams %}
+        {% for teams_and_match in render_matches %}
           <tr>
-            <td>{{ forloop.counter }}. {{ team }}</td>
+            <td>{{ forloop.counter }}. {{ teams_and_match.0.0 }} vs {{ teams_and_match.0.1 }}</td>
+            <td>{{ teams_and_match.1.team_1_score }}</td>
+            <td>{{ teams_and_match.1.team_2_score }}</td>
           </tr>
         {% endfor %}
       {% else %}
     <h2>No matches created,to create match press
-      <a href={% url 'matches' tournament_name stage_id %}>generate matchs</a>
+      <a href={% url 'matches' tournament_name stage_id %}>generate matches</a>
     </h2>
       {% endif %}
       </tbody>

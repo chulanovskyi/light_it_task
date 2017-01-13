@@ -1,11 +1,15 @@
-from django.forms import ModelForm, CheckboxSelectMultiple
+from django.forms import Form, ModelForm, CheckboxSelectMultiple, CharField
 from .models import Tournament, Player, Stage
 
 
-class NewPlayer(ModelForm):
-    class Meta:
-        model = Player
-        exclude = ['pk']
+class NewPlayer(Form):
+    first_name = CharField(max_length=30, label='First name')
+    last_name = CharField(max_length=30, label='Last name')
+
+    def signup(self, request, user):
+        user.first_name = self.cleaned_data['first_name']
+        user.last_name = self.cleaned_data['last_name']
+        user.save()
 
 
 class NewTournament(ModelForm):
