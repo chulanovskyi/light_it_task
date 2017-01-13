@@ -16,7 +16,7 @@ $('#dataTable tr td:not(:last-child)').click(function ()    {
 
 /* For Create-tournament FORM */
 $(document).ready(function(){
-  $('form').submit(function(){
+  $('.modal-body form').submit(function(){
     var x = 0;
     $('li label input').each(function(){
       if ($(this).prop('checked')) {
