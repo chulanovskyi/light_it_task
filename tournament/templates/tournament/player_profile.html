@@ -7,7 +7,12 @@
     {% firstof full_name player.user.username as name %}
     <p><strong>{{ name }}</strong></p>
     <p><em>{{ player.email }}</em></p>
-    {% firstof social_ava player.photo.url as ava %}
-    <img style="width: 200px" src="{{ ava }}" alt="player ava"/><br/>
+    {% if social_ava %}
+      <img style="width: 200px" src="{{ social_ava }}" alt="player ava"/><br/>
+    {% elif player.photo %}
+      <img style="width: 200px" src="{{ player.photo.url }}" alt="player ava"/><br/>
+    {% else %}
+      <span class="fa fa-user-circle glyph-m-size"></span>
+    {% endif %}
   </div>
 {% endblock %}

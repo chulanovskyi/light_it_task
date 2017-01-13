@@ -132,12 +132,12 @@ def create_matches(request, tournament_name, stage_id):
 def show_matches(requests, tournament_name, stage_id):
     rounds = Round.objects.filter(stage_id=stage_id)
     matches_list = Match.objects.filter(round_id=rounds[0].id)
-    teams_in_match = []
+    render_matches = []
     for match in matches_list:
-        pretty_teams = '{0} vs {1}'.format(*match.teams.all())
-        teams_in_match.append(pretty_teams)
+        teams_and_match = [match.teams.all(), match]
+        render_matches.append(teams_and_match)
     context = {
-        'teams': teams_in_match,
+        'render_matches': render_matches,
         'tournament_name': tournament_name,
         'stage_id': stage_id,
     }
