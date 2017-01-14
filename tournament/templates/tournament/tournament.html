@@ -18,12 +18,10 @@
           <p>Round amount - {{ stage.round_set.count }}</p>
           <a href="{% url 'show' tournament_name stage.id %}"><p>Match-list</p></a>
         </div>
-        <td class="btn-edit remove-action">
           <form method="POST" action="matches/{{ stage.id }}/">
             {% csrf_token %}
-            <input type="submit" value="Generate matches">
+            <input type="submit" class="btn btn-primary" value="Generate matches">
           </form>
-        </td>
       {% endfor %}
     {% endif %}
   </div>

@@ -1,6 +1,3 @@
-/**
- * Created by oleg on 01.12.16.
- */
 $(document).ready(function(){
     $(".tourn-link").click(function() {
         window.location = $(this).data("href");
@@ -10,4 +7,5 @@ $(document).ready(function(){
 $('#dataTable tr td:not(:last-child)').click(function ()    {
  location.href = $(this).parent().find('td a').attr('href');
 });
+
 */

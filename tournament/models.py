@@ -89,6 +89,12 @@ class Match(models.Model):
                   int(id_score_2[0]): int(id_score_2[1])}
         return result
 
+    def first_team_goals(self):
+        return (self.team_1_score.split(':')[1])
+
+    def second_team_goals(self):
+        return (self.team_2_score.split(':')[1])
+
     class Meta:
         verbose_name_plural = 'matches'
 

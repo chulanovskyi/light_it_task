@@ -1,33 +1,50 @@
 {% extends 'tournament/base.html' %}
+{% load static %}
 
 {% block title %}Matches{% endblock %}
 
+{% block head %}
+  <link rel="stylesheet" href={% static "tournament/tables.css" %}>
+{% endblock %}
+
 {% block content %}
   <div class="container-fluid players">
-  {% if render_matches %}
-    <table class="table table-responsive table-bordered">
-      <thead>
-      <tr>
-        <th>Matches list:</th>
-        <th>Team 1</th>
-        <th>Team 2</th>
-      </tr>
-      </thead>
+    {% if render_matches %}
+      <table class="table table-responsive table-bordered">
       <tbody class="main-table-body">
-        {% for teams_and_match in render_matches %}
-          <tr>
-            <td>{{ forloop.counter }}. {{ teams_and_match.0.0 }} vs {{ teams_and_match.0.1 }}</td>
-            <td>{{ teams_and_match.1.team_1_score }}</td>
-            <td>{{ teams_and_match.1.team_2_score }}</td>
-            <td>{{ teams_and_match.2 }}</td>
-          </tr>
-        {% endfor %}
-      {% else %}
-    <h2>No matches created,to create match press
-      <a href={% url 'matches' tournament_name stage_id %}>generate matches</a>
-    </h2>
-      {% endif %}
-      </tbody>
+      {% for teams_and_match in render_matches %}
+        <tr>
+          <td>
+            <table class="match">
+              <tbody>
+              <tr>
+                <td>Teams:</td>
+                <td class="score">Score:</td>
+              </tr>
+              <tr>
+                <td>
+                  <span class="glyphicon glyphicon-menu-right"></span>
+                  {{ teams_and_match.0.0 }}</td>
+                <td class="score">{{ teams_and_match.1.first_team_goals }}</td>
+              </tr>
+              <tr>
+                <td>
+                  <span class="glyphicon glyphicon-menu-right"></span>
+                  {{ teams_and_match.0.1 }}
+                </td>
+                <td class="score"> {{ teams_and_match.1.second_team_goals }}</td>
+              </tr>
+              </tbody>
+            </table>
+          </td>
+        </tr>
+    {% endfor %}
+    {% else %}
+      <h2>No matches created,to create match press
+        <a href={% url 'matches' tournament_name stage_id %}>generate matches</a>
+      </h2>
+    {% endif %}
+    </tbody>
     </table>
   </div>
 {% endblock %}
