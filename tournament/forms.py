@@ -1,5 +1,5 @@
 from django.forms import Form, ModelForm, CheckboxSelectMultiple, CharField
-from .models import Tournament, Player, Stage
+from .models import Tournament, Stage
 
 
 class NewPlayer(Form):

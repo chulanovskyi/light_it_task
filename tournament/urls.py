@@ -14,4 +14,5 @@ urlpatterns = [
     url(r'^(?P<tournament_name>[\w\s]+)/(?P<stage_id>[0-9]+)/$', views.table, name='table'),
     url(r'^(?P<tournament_name>[\w\s]+)/matches/(?P<stage_id>[0-9]+)/$', views.create_matches, name='matches'),
     url(r'^(?P<tournament_name>[\w\s]+)/(?P<stage_id>[0-9]+)/match-list/$', views.show_matches, name='show'),
+    url(r'^(?P<tournament_name>[\w\s]+)/(?P<stage_id>[0-9]+)/match-list/match_score/$', views.match_score, name='score'),
 ]

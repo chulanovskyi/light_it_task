@@ -1,27 +1,34 @@
 /* NavBar */
-.navbar-nav p{
+.navbar-nav p {
   margin-bottom: 0;
 }
-.navbar-nav li img{
+
+.navbar-nav li img {
   margin: 0 5px;
 }
-.glyph-m-size{
+
+.glyph-m-size {
   font-size: 49px;
 }
-.glyph-xs-size{
+
+.glyph-xs-size {
   font-size: 28px;
 }
-.fa{
+
+.fa {
   color: darkgray;
 }
-.modal-body .fa{
+
+.modal-body .fa {
   margin: 0 5px;
 }
-.user-ava{
+
+.user-ava {
   border-radius: 50%;
   height: 50px;
   width: 50px;
 }
+
 /*---*/
 /*Tournaments table*/
 .btn-create {
@@ -29,55 +36,70 @@
   margin-bottom: 20px;
   height: 30px;
 }
+
 .btn-edit {
   width: 5%;
 }
-.main-table-head tr th{
+
+.main-table-head tr th {
   text-align: center;
 }
 
-.main-table-NS{
+.main-table-NS {
   background: #FFF;
 }
 
-.main-table-S{
+.main-table-S {
   background-color: #9E9;
 }
 
-.main-table-E{
+.main-table-E {
   background-color: #F88;
 }
 
-.tourn-link:hover{
+.tourn-link:hover {
   cursor: pointer;
   background: rgba(255, 255, 255, 0.5);
   transition: 0.5s;
 }
+
 /*---*/
 /*Modal create*/
-.modal-body form ul li{
+.modal-body form ul li {
   list-style-type: none;
 }
+
 .modal-body form ul {
   height: 100px;
   overflow: scroll;
   overflow-x: hidden;
 }
-#error_message{
+
+#error_message {
   margin: -15px 0 5px 0;
 }
+
 /*---*/
 /* about */
-.help-text{
+.help-text {
   font-size: 18px;
   text-align: center;
 }
+
 /*---*/
 
 /* tournament page */
-.stage{
+.stage {
   display: inline-block;
   width: 200px;
   text-align: center;
 }
+
 /*---*/
+
+/* players list */
+div .players-list {
+  box-shadow: 0 0 4px 0px black;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}

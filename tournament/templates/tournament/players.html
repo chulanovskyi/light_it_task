@@ -3,20 +3,15 @@
 {% block title %}Players{% endblock %}
 
 {% block content %}
-  <div class="container-fluid players">
-    <table class="table table-responsive table-bordered">
-      <thead>
-      <tr>
-        <th>Players list:</th>
-      </tr>
-      </thead>
-      <tbody class="main-table-body">
+  <div class="container-fluid ">
+    <div class="row">
       {% for player in players %}
-        <tr>
-          <td>{{ forloop.counter }}. {{ player.first_name }} {{ player.last_name }}</td>
-        </tr>
+      <div class="col-md-12">
+        <div class="players-list">
+          {{ forloop.counter }}. {{ player.first_name }} {{ player.last_name }}
+        </div>
+      </div>
       {% endfor %}
-      </tbody>
-    </table>
+    </div>
   </div>
 {% endblock %}

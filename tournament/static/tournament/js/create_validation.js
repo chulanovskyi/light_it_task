@@ -27,13 +27,12 @@ window.onload = function(){
                 ul.style.color = "red";
                 return false;
             }
-            if (l.length % 2 == 0){
-                return true;
-            } else {
+            if (l.length % 2 !== 0){
                 error_message.innerHTML = "Выберите чётное количество игроков";
                 ul.parentNode.insertBefore(error_message, ul);
                 ul.style.color = "red";
                 return false;
             }
+            return true
     }
 };

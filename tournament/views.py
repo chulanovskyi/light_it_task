@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from .models import Tournament, Stage, Player, Team, Round, Match
 from .forms import NewTournament, NewStage
 from django.views.decorators.http import require_POST
+from django.http import JsonResponse
 import random
 
 
@@ -10,12 +11,12 @@ def main(request):
     context = {
         'tournaments': tournaments,
     }
-    is_tourn_admin = request.user.groups.filter(name='tournament_admin').exists()
-    if is_tourn_admin:
+    is_admin = request.user.groups.filter(name='tournament_admin').exists()
+    if is_admin:
         tournament_form = NewTournament()
         stage_form = NewStage()
         context['new_tourn_form'] = tournament_form
-        context['is_tourn_admin'] = is_tourn_admin
+        context['is_admin'] = is_admin
         context['new_stage_form'] = stage_form
     return render(request, 'tournament/main.html', context)
 
@@ -45,7 +46,7 @@ def create_teams(request, tournament_id):
         return redirect('main')
     tournament = Tournament.objects.get(id=tournament_id)
     players = tournament.players.all().order_by('rank')
-    half = int(len(players)/2)
+    half = int(len(players) / 2)
     weak, strong = (players[:half], players[half:])
     while weak:
         if random.random() > 0.8:
@@ -58,7 +59,7 @@ def create_teams(request, tournament_id):
             p1_f=p1.first_name[0],
             p1_l=p1.last_name,
             p2_f=p2.first_name[0],
-            p2_l=p2.last_name,)
+            p2_l=p2.last_name, )
         team = Team(name=team_name, tournament=tournament)
         team.save()  # maybe there is better way without using save() two times
         team.players.add(p1, p2)
@@ -139,10 +140,12 @@ def show_matches(request, tournament_name, stage_id):
     for match in matches_list:
         teams_and_match = [match.teams.all(), match]
         render_matches.append(teams_and_match)
+    is_admin = request.user.groups.filter(name='tournament_admin').exists()
     context = {
         'render_matches': render_matches,
         'tournament_name': tournament_name,
         'stage_id': stage_id,
+        'is_admin': is_admin,
     }
     return render(request, 'tournament/matches.html', context)
 
@@ -154,3 +157,21 @@ def match_generator(teams):
         for team2 in teams:
             match.append([team1, team2])
     return match
+
+
+@require_POST
+def match_score(request, tournament_name, stage_id):
+    first_team = request.POST.get('team_1_score')
+    second_team = request.POST.get('team_2_score')
+    match_id = request.POST.get('match_id')
+    first_team_id = Match.objects.get(id=match_id).teams.first().id
+    second_team_id = Match.objects.get(id=match_id).teams.last().id
+    score = Match.objects.get(id=match_id)
+    score.team_1_score = '{0}:{1}'.format(first_team_id, first_team)
+    score.team_2_score = '{0}:{1}'.format(second_team_id, second_team)
+    score.save()
+    response_data = {}
+    response_data['result'] = 'Create post successful!'
+    response_data['score_first_team'] = score.team_1_score
+    response_data['score_second_team'] = score.team_2_score
+    return JsonResponse(response_data) or JsonResponse({"nothing to see": "this isn't happening"})
