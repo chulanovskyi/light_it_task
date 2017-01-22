@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.db.models.signals import m2m_changed, post_save
 from django.core.exceptions import ValidationError
+from django.urls import reverse
 
 
 STATUS_CHOICES = (
@@ -57,6 +58,10 @@ class Stage(models.Model):
             st_id=self.id,
             st_mode=self.mode,
         )
+
+    def get_absolute_url(self):
+        return reverse('matches', kwargs={'tourn_id':str(self.tournament_id),
+                                         'stage_id':str(self.id)})
 
 
 class Round(models.Model):
