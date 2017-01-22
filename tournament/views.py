@@ -3,10 +3,34 @@ from .models import Tournament, Stage, Player, Team, Round, Match
 from .forms import NewTournament, NewStage
 from django.views.decorators.http import require_POST
 from django.http import JsonResponse
+from django.views.generic import ListView, DetailView
 import random
 
 
-def main(request):
+class TournamentList(ListView):
+    template_name = 'tournament/main1.html'
+    model = Tournament
+    context_object_name = 'all_tournaments'
+
+
+class StageList(ListView):
+    template_name = 'tournament/tournament.html'
+    context_object_name = 'all_stages'
+    def get_queryset(self):
+        return Stage.objects.filter(tournament_id=self.kwargs['tourn_id'])
+
+
+class MatchesList(ListView):
+    template_name = 'tournament/matches.html'
+    model = Match
+    context_object_name = "all_matches"
+
+class TableList(ListView):
+    template_name = 'tournament/table_reg.html'
+    model = Team
+
+
+'''def main(request):
     tournaments = Tournament.objects.all()
     context = {
         'tournaments': tournaments,
@@ -174,4 +198,4 @@ def match_score(request, tournament_name, stage_id):
     response_data['result'] = 'Create post successful!'
     response_data['score_first_team'] = score.team_1_score
     response_data['score_second_team'] = score.team_2_score
-    return JsonResponse(response_data) or JsonResponse({"nothing to see": "this isn't happening"})
+    return JsonResponse(response_data) or JsonResponse({"nothing to see": "this isn't happening"}'''
