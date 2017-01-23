@@ -9,47 +9,46 @@
 {% block content %}
   <div class="container-fluid">
     <div class="row">
-      {% if render_matches %}
-        {% if is_admin %}
-        {% for teams_and_match in render_matches %}
-          <form method="POST" action="/create_post/" id="id{{ teams_and_match.1.id }}" class="{{ teams_and_match.1.id }}">
+      {% if all_matches %}
+        <!--{% if is_admin %}
+        {% for match in all_matches %}
+          <form method="POST" action="/create_post/" id="id{{ match.id }}" class="{{ match.id }}">
           {% csrf_token %}
-            <div class="col-md-3 teams-result" id="id{{ teams_and_match.1.id }}">
+            <div class="col-md-3 teams-result" id="id{{ match.id }}">
               <div class="first-team">
                 <span class="glyphicon glyphicon-menu-right"></span>
-                {{ teams_and_match.0.0 }}
-                <div class="score-first">{{ teams_and_match.1.first_team_goals }}</div>
+                {{ match.team.first }}
+                <div class="score-first">{{ match.first_team_goals }}</div>
               </div>
               <div class="second-team">
                 <span class="glyphicon glyphicon-menu-left"></span>
-                {{ teams_and_match.0.1 }}
-                <div class="score-second">{{ teams_and_match.1.second_team_goals }}</div>
+                {{ match.teams.last }}
+                <div class="score-second">{{ match.second_team_goals }}</div>
               </div>
-              <button class="btn edit" id="{{ teams_and_match.1.id }}">Edit</button>
-              <div id="{{ teams_and_match.1.id }}"></div>
+              <button class="btn edit" id="{{ match.id }}">Edit</button>
+              <div id="{{ match.id }}"></div>
               <button class="btn save" style="display:none" type="submit">Save</button>
             </div>
           </form>
         {% endfor %}
-        {% else %}
-          {% for teams_and_match in render_matches %}
+        {% endif %} -->
+          {% for match in all_matches %}
           <div class="col-md-3 teams-result">
               <div class="first-team">
                 <span class="glyphicon glyphicon-menu-right"></span>
-                {{ teams_and_match.0.0 }}
-                <div class="score-first">{{ teams_and_match.1.first_team_goals }}</div>
+                {{ match.teams.first }}
+                <div class="score-first">{{ match.first_team_goals }}</div>
               </div>
               <div class="second-team">
                 <span class="glyphicon glyphicon-menu-left"></span>
-                {{ teams_and_match.0.1 }}
-                <div class="score-second">{{ teams_and_match.1.second_team_goals }}</div>
+                {{ match.teams.last }}
+                <div class="score-second">{{ match.second_team_goals }}</div>
               </div>
           </div>
         {% endfor %}
-        {% endif %}
-      {% else %}
+        {% else %}
         <h2>No matches created,to create match press
-          <a href={% url 'matches' tournament_name stage_id %}>generate matches</a>
+          <a href='#'>generate matches</a>
         </h2>
       {% endif %}
     </div>
