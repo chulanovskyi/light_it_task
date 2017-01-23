@@ -59,9 +59,14 @@ class Stage(models.Model):
             st_mode=self.mode,
         )
 
-    def get_absolute_url(self):
-        return reverse('matches', kwargs={'tourn_id':str(self.tournament_id),
-                                         'stage_id':str(self.id)})
+    def get_match_url(self):
+        return reverse('matches', kwargs={'stage_id': self.id,
+                                          'tourn_id': self.tournament_id})
+
+
+    def get_table_url(self):
+        return reverse('table', kwargs={'stage_id': self.id,
+                                        'tourn_id': self.tournament_id})
 
 
 class Round(models.Model):
@@ -95,10 +100,10 @@ class Match(models.Model):
         return result
 
     def first_team_goals(self):
-        return (self.team_1_score.split(':')[1])
+        return self.team_1_score.split(':')[1]
 
     def second_team_goals(self):
-        return (self.team_2_score.split(':')[1])
+        return self.team_2_score.split(':')[1]
 
     class Meta:
         verbose_name_plural = 'matches'
