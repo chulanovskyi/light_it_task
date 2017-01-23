@@ -31,8 +31,16 @@ class MatchesList(ListView):
 
 
 class TableList(ListView):
-    template_name = 'tournament/table_reg.html'
-    model = Team
+    context_object_name = "table_teams"
+
+    def get_template_names(self):
+        template_name = super(TableList, self).get_template_names()
+        template_name.append('tournament/table_{}.html'
+                             .format(Stage.objects.get(id=self.kwargs['stage_id']).mode.lower()))
+        return template_name
+
+    def get_queryset(self):
+        return Team.objects.filter(tournament_id=self.kwargs['tourn_id'])
 
 
 '''def main(request):
