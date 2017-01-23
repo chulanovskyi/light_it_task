@@ -20,7 +20,10 @@ from . import views
 
 urlpatterns = [
     url(r'^$', views.TournamentList.as_view(), name='main'),
-    url(r'^tourn(?P<tourn_id>[0-9]+)/$', views.StageList.as_view(), name='tournament'),
-    url(r'^tourn(?P<tourn_id>[0-9]+)/stage(?P<stage_id>)[0-9]+/$', views.TableList.as_view(), name='table'),
-    url(r'^tourn(?P<tourn_id>[0-9]+)/stage(?P<stage_id>)[0-9]+/matches/$', views.MatchesList.as_view(), name='matches'),
+    url(r'^tourn(?P<tourn_id>[0-9]+)/$', views.StageList.as_view(),
+        name='tournament'),
+    url(r'^tourn(?P<tourn_id>[0-9]+)/stage(?P<stage_id>[0-9]+)/table/$',
+        views.TableList.as_view(), name='table'),
+    url(r'^tourn(?P<tourn_id>[0-9]+)/stage(?P<stage_id>[0-9]+)/matches/$',
+        views.MatchesList.as_view(), name='matches'),
 ]
