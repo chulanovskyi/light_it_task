@@ -36,11 +36,11 @@
             <span class="glyphicon glyphicon-tower glyph-m-size"></span>
             <p>Contest</p>
           </a></li>
-          <li><a href="{% url 'players' %}">
+          <li><a href="#">
             <span class="glyphicon glyphicon-user glyph-m-size"></span>
             <p>Players</p>
           </a></li>
-          <li><a href="{% url 'about' %}">
+          <li><a href="#">
             <span class="glyphicon glyphicon-question-sign glyph-m-size"></span>
             <p>About</p>
           </a></li>
@@ -49,7 +49,7 @@
           {% load account %}
           {% load socialaccount %}
           <ul class="nav navbar-nav navbar-right text-center">
-            <li><a href="{% url 'profile' %}">
+            <li><a href="#">
               {% if user.socialaccount_set.all.0.get_avatar_url %}
                 <img src="{{ user.socialaccount_set.all.0.get_avatar_url }}" class="user-ava"/>
               {% elif user.player.photo %}
