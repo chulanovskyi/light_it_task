@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from .models import Tournament, Stage, Player, Team, Round, Match
 from .forms import NewTournament, NewStage
 from django.views.decorators.http import require_POST
@@ -16,14 +16,19 @@ class TournamentList(ListView):
 class StageList(ListView):
     template_name = 'tournament/tournament.html'
     context_object_name = 'all_stages'
+
     def get_queryset(self):
         return Stage.objects.filter(tournament_id=self.kwargs['tourn_id'])
 
 
 class MatchesList(ListView):
     template_name = 'tournament/matches.html'
-    model = Match
     context_object_name = "all_matches"
+
+    def get_queryset(self):
+        self.round = get_object_or_404(Round, stage_id=self.kwargs['stage_id'])
+        return Match.objects.filter(round_id=self.round.id)
+
 
 class TableList(ListView):
     template_name = 'tournament/table_reg.html'
