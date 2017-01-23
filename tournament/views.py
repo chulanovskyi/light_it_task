@@ -8,7 +8,7 @@ import random
 
 
 class TournamentList(ListView):
-    template_name = 'tournament/main1.html'
+    template_name = 'tournament/main.html'
     model = Tournament
     context_object_name = 'all_tournaments'
 
@@ -102,32 +102,6 @@ def create_teams(request, tournament_id):
         team.players.add(p1, p2)
         team.save()
     return redirect('main')
-
-
-def tournament(request, tournament_name):
-    get_tournament = Tournament.objects.get(name=tournament_name)
-    get_stages = get_tournament.stage_set.all()
-    context = {
-        'tournament': get_tournament,
-        'tournament_name': tournament_name,
-        'stages': get_stages
-    }
-    return render(request, 'tournament/tournament.html', context)
-
-
-def table(request, tournament_name, stage_id):
-    get_stage = Stage.objects.get(id=stage_id)
-    tournament_id = get_stage.tournament_id
-    teams = Team.objects.filter(tournament_id=tournament_id)
-    context = {
-        'stage': get_stage,
-        't_name': tournament_name,
-        'teams': teams
-    }
-    if get_stage.mode == "PO":
-        return render(request, 'tournament/table_po.html', context)
-    else:
-        return render(request, 'tournament/table_reg.html', context)
 
 
 def edit_profile(request):
