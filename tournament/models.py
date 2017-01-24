@@ -32,6 +32,11 @@ class Tournament(models.Model):
     def __str__(self):
         return self.name
 
+    def create_teams_url(self):
+        return reverse('create_teams', kwargs={'tourn_id': self.id})
+
+    def delete_tourn_url(self):
+        return reverse('delete_tourn', kwargs={'tourn_id': self.id})
 
 class Team(models.Model):
     name = models.CharField(max_length=150)
@@ -66,6 +71,10 @@ class Stage(models.Model):
 
     def get_table_url(self):
         return reverse('table', kwargs={'stage_id': self.id,
+
+                                        'tourn_id': self.tournament_id})
+    def create_matches_url(self):
+        return reverse('create_matches', kwargs={'stage_id': self.id,
                                         'tourn_id': self.tournament_id})
 
 
@@ -104,6 +113,7 @@ class Match(models.Model):
 
     def second_team_goals(self):
         return self.team_2_score.split(':')[1]
+
 
     class Meta:
         verbose_name_plural = 'matches'
