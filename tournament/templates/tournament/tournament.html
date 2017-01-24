@@ -18,9 +18,9 @@
           <p>Round amount - {{ stage.round_set.count }}</p>
           <a href="{{ stage.get_match_url }}"><p>Match-list</p></a>
         </div>
-          <form method="POST" action="matches/{{ stage.id }}/">
+          <form method="POST" action="{{ stage.create_matches_url }}">
             {% csrf_token %}
-            <input type="submit" class="btn btn-primary" value="Generate matches">
+            <input type="submit" class="btn btn-primary" value="Create matches">
           </form>
       {% endfor %}
     {% endif %}
