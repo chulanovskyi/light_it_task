@@ -3,7 +3,7 @@ from .models import Tournament, Stage, Player, Team, Round, Match
 from .forms import NewTournament, NewStage
 from django.views.decorators.http import require_POST
 from django.http import JsonResponse
-from django.views.generic import ListView, DetailView, CreateView
+from django.views.generic import ListView
 import random
 
 
