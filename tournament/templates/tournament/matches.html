@@ -10,14 +10,14 @@
   <div class="container-fluid">
     <div class="row">
       {% if all_matches %}
-        <!--{% if is_admin %}
+        {% if is_admin %}
         {% for match in all_matches %}
           <form method="POST" action="/create_post/" id="id{{ match.id }}" class="{{ match.id }}">
           {% csrf_token %}
             <div class="col-md-3 teams-result" id="id{{ match.id }}">
               <div class="first-team">
                 <span class="glyphicon glyphicon-menu-right"></span>
-                {{ match.team.first }}
+                {{ match.teams.first }}
                 <div class="score-first">{{ match.first_team_goals }}</div>
               </div>
               <div class="second-team">
@@ -31,7 +31,7 @@
             </div>
           </form>
         {% endfor %}
-        {% endif %} -->
+        {% else %}
           {% for match in all_matches %}
           <div class="col-md-3 teams-result">
               <div class="first-team">
@@ -46,11 +46,14 @@
               </div>
           </div>
         {% endfor %}
+          {% endif %}
         {% else %}
-        <h2>No matches created,to create match press
-          <a href='#'>generate matches</a>
-        </h2>
+        <h2>No matches created yet</h2>
+        <h2>{{ all_matches }}</h2>
       {% endif %}
     </div>
   </div>
+{% endblock %}
+{% block addscripts %}
+  <script src={% static "tournament/js/ajax_match.js" %}></script>
 {% endblock %}
