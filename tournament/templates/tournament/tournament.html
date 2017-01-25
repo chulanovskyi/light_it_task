@@ -8,19 +8,19 @@
 
 {% block content %}
   <div class="container">
-    {% if stages %}
-      {% for stage in stages %}
+    {% if all_stages %}
+      {% for stage in all_stages %}
         <div class="well stage">
-          <a href="{{ stage.id }}">
+          <a href="{{ stage.get_table_url }}">
               <h3>Stage {{ stage.id }}</h3>
           </a>
           <p>{{ stage.get_mode_display }}</p>
           <p>Round amount - {{ stage.round_set.count }}</p>
-          <a href="{% url 'show' tournament_name stage.id %}"><p>Match-list</p></a>
+          <a href="{{ stage.get_match_url }}"><p>Match-list</p></a>
         </div>
-          <form method="POST" action="matches/{{ stage.id }}/">
+          <form method="POST" action="{{ stage.create_matches_url }}">
             {% csrf_token %}
-            <input type="submit" class="btn btn-primary" value="Generate matches">
+            <input type="submit" class="btn btn-primary" value="Create matches">
           </form>
       {% endfor %}
     {% endif %}

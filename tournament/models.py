@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.db.models.signals import m2m_changed, post_save
 from django.core.exceptions import ValidationError
+from django.urls import reverse
 
 
 STATUS_CHOICES = (
@@ -31,6 +32,11 @@ class Tournament(models.Model):
     def __str__(self):
         return self.name
 
+    def create_teams_url(self):
+        return reverse('create_teams', kwargs={'tourn_id': self.id})
+
+    def delete_tourn_url(self):
+        return reverse('delete_tourn', kwargs={'tourn_id': self.id})
 
 class Team(models.Model):
     name = models.CharField(max_length=150)
@@ -57,6 +63,19 @@ class Stage(models.Model):
             st_id=self.id,
             st_mode=self.mode,
         )
+
+    def get_match_url(self):
+        return reverse('matches', kwargs={'stage_id': self.id,
+                                          'tourn_id': self.tournament_id})
+
+
+    def get_table_url(self):
+        return reverse('table', kwargs={'stage_id': self.id,
+
+                                        'tourn_id': self.tournament_id})
+    def create_matches_url(self):
+        return reverse('create_matches', kwargs={'stage_id': self.id,
+                                        'tourn_id': self.tournament_id})
 
 
 class Round(models.Model):
@@ -90,10 +109,11 @@ class Match(models.Model):
         return result
 
     def first_team_goals(self):
-        return (self.team_1_score.split(':')[1])
+        return self.team_1_score.split(':')[1]
 
     def second_team_goals(self):
-        return (self.team_2_score.split(':')[1])
+        return self.team_2_score.split(':')[1]
+
 
     class Meta:
         verbose_name_plural = 'matches'

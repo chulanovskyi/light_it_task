@@ -1,25 +1,61 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from .models import Tournament, Stage, Player, Team, Round, Match
 from .forms import NewTournament, NewStage
 from django.views.decorators.http import require_POST
 from django.http import JsonResponse
+from django.views.generic import ListView, DetailView, CreateView
 import random
 
 
-def main(request):
-    tournaments = Tournament.objects.all()
-    context = {
-        'tournaments': tournaments,
-    }
-    is_admin = request.user.groups.filter(name='tournament_admin').exists()
-    if is_admin:
-        tournament_form = NewTournament()
-        stage_form = NewStage()
-        context['new_tourn_form'] = tournament_form
-        context['is_admin'] = is_admin
-        context['new_stage_form'] = stage_form
-    return render(request, 'tournament/main.html', context)
+class TournamentList(ListView):
+    template_name = 'tournament/main.html'
+    model = Tournament
+    context_object_name = 'all_tournaments'
 
+    def get_context_data(self, **kwargs):
+        context = super(TournamentList, self).get_context_data(**kwargs)
+        context['is_admin'] = self.request.user.groups.\
+            filter(name='tournament_admin').exists()
+        if context['is_admin']:
+            context['new_tourn_form'] = NewTournament()
+            context['new_stage_form'] = NewStage()
+        return context
+
+
+class StageList(ListView):
+    template_name = 'tournament/tournament.html'
+    context_object_name = 'all_stages'
+
+    def get_queryset(self):
+        return Stage.objects.filter(tournament_id=self.kwargs['tourn_id'])
+
+
+class MatchesList(ListView):
+    template_name = 'tournament/matches.html'
+    context_object_name = "all_matches"
+
+    def get_queryset(self):
+        self.round = get_object_or_404(Round, stage_id=self.kwargs['stage_id'])
+        return Match.objects.filter(round_id=self.round.id)
+
+    def get_context_data(self, **kwargs):
+        context = super(MatchesList, self).get_context_data(**kwargs)
+        context['is_admin'] = self.request.user.groups.\
+            filter(name='tournament_admin').exists()
+        return context
+
+
+class TableList(ListView):
+    context_object_name = "table_teams"
+
+    def get_template_names(self):
+        template_name = super(TableList, self).get_template_names()
+        template_name.append('tournament/table_{}.html'
+                             .format(Stage.objects.get(id=self.kwargs['stage_id']).mode.lower()))
+        return template_name
+
+    def get_queryset(self):
+        return Team.objects.filter(tournament_id=self.kwargs['tourn_id'])
 
 @require_POST
 def create_tournament(request):
@@ -36,15 +72,15 @@ def create_tournament(request):
     return redirect('main')
 
 
-def delete_tournament(request, tournament_id):
-    Tournament.objects.filter(id=tournament_id).delete()
+def delete_tournament(request, tourn_id):
+    Tournament.objects.filter(id=tourn_id).delete()
     return redirect('main')
 
 
-def create_teams(request, tournament_id):
-    if Team.objects.filter(tournament_id=tournament_id).exists():
+def create_teams(request, tourn_id):
+    if Team.objects.filter(tournament_id=tourn_id).exists():
         return redirect('main')
-    tournament = Tournament.objects.get(id=tournament_id)
+    tournament = Tournament.objects.get(id=tourn_id)
     players = tournament.players.all().order_by('rank')
     half = int(len(players) / 2)
     weak, strong = (players[:half], players[half:])
@@ -65,32 +101,6 @@ def create_teams(request, tournament_id):
         team.players.add(p1, p2)
         team.save()
     return redirect('main')
-
-
-def tournament(request, tournament_name):
-    get_tournament = Tournament.objects.get(name=tournament_name)
-    get_stages = get_tournament.stage_set.all()
-    context = {
-        'tournament': get_tournament,
-        'tournament_name': tournament_name,
-        'stages': get_stages
-    }
-    return render(request, 'tournament/tournament.html', context)
-
-
-def table(request, tournament_name, stage_id):
-    get_stage = Stage.objects.get(id=stage_id)
-    tournament_id = get_stage.tournament_id
-    teams = Team.objects.filter(tournament_id=tournament_id)
-    context = {
-        'stage': get_stage,
-        't_name': tournament_name,
-        'teams': teams
-    }
-    if get_stage.mode == "PO":
-        return render(request, 'tournament/table_po.html', context)
-    else:
-        return render(request, 'tournament/table_reg.html', context)
 
 
 def edit_profile(request):
@@ -116,10 +126,8 @@ def players(request):
     return render(request, 'tournament/players.html', context)
 
 
-def create_matches(request, tournament_name, stage_id):
-    get_stage = Stage.objects.get(id=stage_id)
-    tournament_id = get_stage.tournament_id
-    teams = Team.objects.filter(tournament_id=tournament_id)
+def create_matches(request, tourn_id, stage_id):
+    teams = Team.objects.filter(tournament_id=tourn_id)
     rounds = Round.objects.filter(stage_id=stage_id)
     if not Match.objects.filter(round_id=rounds[0].id).exists():
         matches = match_generator(list(teams))
@@ -130,24 +138,7 @@ def create_matches(request, tournament_name, stage_id):
                               )
             obj_match.save()
             obj_match.teams.add(team[0], team[1])
-    return redirect('tournament', tournament_name)
-
-
-def show_matches(request, tournament_name, stage_id):
-    rounds = Round.objects.filter(stage_id=stage_id)
-    matches_list = Match.objects.filter(round_id=rounds[0].id)
-    render_matches = []
-    for match in matches_list:
-        teams_and_match = [match.teams.all(), match]
-        render_matches.append(teams_and_match)
-    is_admin = request.user.groups.filter(name='tournament_admin').exists()
-    context = {
-        'render_matches': render_matches,
-        'tournament_name': tournament_name,
-        'stage_id': stage_id,
-        'is_admin': is_admin,
-    }
-    return render(request, 'tournament/matches.html', context)
+    return redirect('tournament', tourn_id)
 
 
 def match_generator(teams):
@@ -160,7 +151,7 @@ def match_generator(teams):
 
 
 @require_POST
-def match_score(request, tournament_name, stage_id):
+def match_score(request, tourn_id, stage_id):
     first_team = request.POST.get('team_1_score')
     second_team = request.POST.get('team_2_score')
     match_id = request.POST.get('match_id')
