@@ -8,7 +8,7 @@ import random
 
 
 class TournamentList(ListView):
-    template_name = 'tournament/tournaments.html'
+    template_name = 'tournament/main.html'
     model = Tournament
     context_object_name = 'all_tournaments'
 
