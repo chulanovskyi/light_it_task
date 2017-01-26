@@ -298,7 +298,7 @@
 .score-first,
 .score-second {
   float: right;
-  width: auto;
+  width: 70px;
 }
 
 button,
@@ -313,7 +313,12 @@ input {
   box-shadow: 0 0 2px 0px black;
 }
 
-input {
-  width: 30%;
+.score-first input,
+.score-second input {
+  width: inherit;
+}
+div.first-team,
+div.second-team {
+  margin:10px;
 }
 
