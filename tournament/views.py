@@ -8,7 +8,7 @@ import random
 
 
 class TournamentList(ListView):
-    template_name = 'tournament/main.html'
+    template_name = 'tournament/tournaments.html'
     model = Tournament
     context_object_name = 'all_tournaments'
 
@@ -28,6 +28,12 @@ class StageList(ListView):
 
     def get_queryset(self):
         return Stage.objects.filter(tournament_id=self.kwargs['tourn_id'])
+
+    def get_context_data(self, **kwargs):
+        context = super(StageList, self).get_context_data(**kwargs)
+        context['is_admin'] = self.request.user.groups.\
+            filter(name='tournament_admin').exists()
+        return context
 
 
 class MatchesList(ListView):
@@ -56,6 +62,11 @@ class TableList(ListView):
 
     def get_queryset(self):
         return Team.objects.filter(tournament_id=self.kwargs['tourn_id'])
+
+class PlayersList(ListView):
+    context_object_name = "players"
+    template_name = 'tournament/players.html'
+    model = Player
 
 @require_POST
 def create_tournament(request):
@@ -118,12 +129,6 @@ def edit_profile(request):
 
 def about(request):
     return render(request, 'tournament/about.html')
-
-
-def players(request):
-    get_players = Player.objects.all()
-    context = {'players': get_players}
-    return render(request, 'tournament/players.html', context)
 
 
 def create_matches(request, tourn_id, stage_id):
