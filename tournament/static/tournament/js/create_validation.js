@@ -1,38 +1,35 @@
-/**
- * Created by coal on 13.01.17.
- */
-window.onload = function(){
-    var form = document.getElementById('create-form');
-    var checkboxes = document.querySelectorAll("input[type='checkbox']");
-    var ul = document.getElementById("id_players");
-    var error_message = document.createElement('div');
-    error_message.setAttribute('id','error_message');
-
-    for (var i = 0; i < checkboxes.length; i++) {
-        checkboxes[i].onchange = function () {
-            if (document.getElementById('error_message')) {
-                ul.style.color = "black";
-                ul.style.border = "0px solid red";
-                ul.parentNode.removeChild(error_message);
-            }
+function toggle(source) {
+    var allChecks = $("input[name='players']");
+    for(var i=0, n=allChecks.length; i<n; i++) {
+        allChecks[i].checked = source.checked;
+    }
+}
+$(function() {
+    var $form = $('#create-form');
+    var $checkboxes = $("input[name='players']");
+    var $playersList = $("#id_players");
+    var $err_message = $('<div/>', {id: 'error_message'});
+    $checkboxes.change(function(){
+        if ($('#error_message')){
+            $playersList.css('color', '#333');
+            $playersList.css('border', "0px solid red");
+            $err_message.remove();
         }
-    }
-    form.onsubmit = function(){
-        var n = form.querySelectorAll('[type="checkbox"]'),
-            l = form.querySelectorAll('[type="checkbox"]:checked');
-        for(var j=0; j< n.length; j++)
-            if(l.length < 4) {
-                error_message.innerHTML = "Минимум 4 игрока";
-                ul.parentNode.insertBefore(error_message, ul);
-                ul.style.color = "red";
-                return false;
-            }
-            if (l.length % 2 !== 0){
-                error_message.innerHTML = "Выберите чётное количество игроков";
-                ul.parentNode.insertBefore(error_message, ul);
-                ul.style.color = "red";
-                return false;
-            }
-            return true
-    }
-};
+    });
+    $form.submit(function() {
+        var checkedPlayers = $form.find('[name="players"]:checked');
+        if (checkedPlayers.length < 4) {
+            $err_message.text("Минимум 4 игрока");
+            $playersList.before($err_message);
+            $playersList.css('color', 'red');
+            return false;
+        }
+        if (checkedPlayers.length % 2 !== 0) {
+            $err_message.text("Выберите чётное количество игроков");
+            $playersList.before($err_message);
+            $playersList.css('color', 'red');
+            return false;
+        }
+        return true
+    });
+});

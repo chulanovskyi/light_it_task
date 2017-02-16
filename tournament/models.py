@@ -38,6 +38,7 @@ class Tournament(models.Model):
     def delete_tourn_url(self):
         return reverse('delete_tourn', kwargs={'tourn_id': self.id})
 
+
 class Team(models.Model):
     name = models.CharField(max_length=150)
     goals = models.PositiveSmallIntegerField(default=0)
@@ -68,11 +69,10 @@ class Stage(models.Model):
         return reverse('matches', kwargs={'stage_id': self.id,
                                           'tourn_id': self.tournament_id})
 
-
     def get_table_url(self):
         return reverse('table', kwargs={'stage_id': self.id,
-
                                         'tourn_id': self.tournament_id})
+
     def create_matches_url(self):
         return reverse('create_matches', kwargs={'stage_id': self.id,
                                         'tourn_id': self.tournament_id})

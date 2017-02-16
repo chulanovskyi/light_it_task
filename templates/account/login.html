@@ -3,7 +3,7 @@
 {% load i18n %}
 {% load account socialaccount %}
 
-{% block head_title %}{% trans "Sign In" %}{% endblock %}
+{% block title %}{% trans "Sign In" %}{% endblock %}
 
 {% block content %}
 <div class="text-center">
@@ -18,11 +18,11 @@
 
   <div class="socialaccount_ballot">
 
-    <ul class="socialaccount_providers">
+    <ul class="socialaccount_providers" style="display: inline; list-style-type: none; font: bold 18px Arial" >
       {% include "socialaccount/snippets/provider_list.html" with process="login" %}
     </ul>
 
-    <div class="login-or">{% trans 'or' %}</div>
+    <div class="login-or" style="padding: 0 0 20px 0">{% trans 'or' %}</div>
 
   </div>
 

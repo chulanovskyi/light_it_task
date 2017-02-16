@@ -79,6 +79,14 @@
   margin: -15px 0 5px 0;
 }
 
+#all_check{
+  margin-left: 40px;
+}
+#all_label {
+  padding: 0 5px 0 5px;
+  border: 1px solid gray;
+  border-radius: 10%;
+}
 /*---*/
 /* about */
 .help-text {

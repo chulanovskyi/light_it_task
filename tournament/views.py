@@ -56,17 +56,19 @@ class TableList(ListView):
 
     def get_template_names(self):
         template_name = super(TableList, self).get_template_names()
-        template_name.append('tournament/table_{}.html'
-                             .format(Stage.objects.get(id=self.kwargs['stage_id']).mode.lower()))
+        template_name.append('tournament/table_{}.html'.format(
+            Stage.objects.get(id=self.kwargs['stage_id']).mode.lower()))
         return template_name
 
     def get_queryset(self):
         return Team.objects.filter(tournament_id=self.kwargs['tourn_id'])
 
+
 class PlayersList(ListView):
     context_object_name = "players"
     template_name = 'tournament/players.html'
     model = Player
+
 
 @require_POST
 def create_tournament(request):
@@ -92,9 +94,9 @@ def create_teams(request, tourn_id):
     if Team.objects.filter(tournament_id=tourn_id).exists():
         return redirect('main')
     tournament = Tournament.objects.get(id=tourn_id)
-    players = tournament.players.all().order_by('rank')
-    half = int(len(players) / 2)
-    weak, strong = (players[:half], players[half:])
+    all_players = tournament.players.all().order_by('rank')
+    half = int(len(all_players) / 2)
+    weak, strong = (all_players[:half], all_players[half:])
     while weak:
         if random.random() > 0.8:
             p1 = weak.pop(random.randrange(len(weak)))  # need to rid of len
@@ -166,8 +168,7 @@ def match_score(request, tourn_id, stage_id):
     score.team_1_score = '{0}:{1}'.format(first_team_id, first_team)
     score.team_2_score = '{0}:{1}'.format(second_team_id, second_team)
     score.save()
-    response_data = {}
-    response_data['result'] = 'Create post successful!'
+    response_data = {'result': 'Create post successful!'}
     response_data['score_first_team'] = score.team_1_score
     response_data['score_second_team'] = score.team_2_score
     return JsonResponse(response_data) or JsonResponse({"nothing to see": "this isn't happening"})

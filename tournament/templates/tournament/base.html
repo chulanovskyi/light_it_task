@@ -13,6 +13,9 @@
   <link rel="stylesheet" href={% static "tournament/libs/bootstrap/css/bootstrap.min.css" %}>
   <link rel="stylesheet" href={% static "tournament/libs/fa/css/font-awesome.min.css" %}>
   <link rel="stylesheet" href={% static "tournament/main.css" %}>
+  <script src={% static "tournament/libs/jquery-3.1.1.min.js" %}></script>
+  <script src={% static "tournament/libs/bootstrap/js/bootstrap.min.js" %}></script>
+  <script src={% static "tournament/js/common.js" %}></script>
   <title>{% block title %}{% endblock %}</title>
   {% block head %}{% endblock %}
 </head>
@@ -85,8 +88,12 @@
           <h4 class="modal-title" id="login_modal_lbl">Login</h4>
         </div>
         <div class="modal-body text-center">
-          <a href="/accounts/facebook/login/?process=login"><span class="fa fa-facebook glyph-m-size"></span></a>
-          <a href="/accounts/vk/login/?process=login"><span class="fa fa-vk glyph-m-size"></span></a>
+          <a href="{% provider_login_url 'facebook' %}">
+            <span class="fa fa-facebook glyph-m-size"></span>
+          </a>
+          <a href="{% provider_login_url 'vk' %}">
+            <span class="fa fa-vk glyph-m-size"></span>
+          </a>
           <a href="/accounts/login"><span class="fa fa-user glyph-m-size"></span></a>
         </div>
         <div class="modal-footer">
@@ -96,9 +103,6 @@
     </div>
   </div>
   {% block content %}{% endblock %}
-  <script src={% static "tournament/libs/jquery-3.1.1.min.js" %}></script>
-  <script src={% static "tournament/libs/bootstrap/js/bootstrap.min.js" %}></script>
-  <script src={% static "tournament/js/common.js" %}></script>
-{% block addscripts %}{% endblock %}
+  {% block addscripts %}{% endblock %}
 </body>
 </html>
