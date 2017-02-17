@@ -24,8 +24,6 @@
   display: -webkit-flex;
   display: flex;
   width: 42%;
-  -webkit-flex-direction: row;
-  -moz-flex-direction: row;
   flex-direction: row;
 }
 
@@ -170,8 +168,6 @@
 
 @media screen and (max-width: 980px) {
   .po-table {
-    -webkit-flex-direction: column;
-    -moz-flex-direction: column;
     flex-direction: column;
   }
 
@@ -182,10 +178,6 @@
   }
 
   .po-champion {
-    -webkit-box-ordinal-group: 3;
-    -moz-box-ordinal-group: 3;
-    -ms-flex-order: 3;
-    -webkit-order: 3;
     order: 3;
   }
 
@@ -298,7 +290,7 @@
 .score-first,
 .score-second {
   float: right;
-  width: 70px;
+  width: 50px;
 }
 
 button,
@@ -310,15 +302,15 @@ input {
   margin-top: 5px;
   margin-bottom: 5px;
   margin-left: 5px;
-  box-shadow: 0 0 2px 0px black;
+  box-shadow: 0 0 2px 0 black;
 }
 
 .score-first input,
 .score-second input {
-  width: inherit;
+  width: 50px;
 }
 div.first-team,
 div.second-team {
-  margin:10px;
+  margin-bottom: 10px;
 }
 

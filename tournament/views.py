@@ -158,7 +158,7 @@ def match_generator(teams):
 
 
 @require_POST
-def match_score(request, tourn_id, stage_id):
+def match_score(request, **kwargs):
     first_team = request.POST.get('team_1_score')
     second_team = request.POST.get('team_2_score')
     match_id = request.POST.get('match_id')

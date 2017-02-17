@@ -5,16 +5,15 @@
 var selector = '';
 var score = '';
 // Add inputs and button save for form
-$("button.edit").click(function () {
+$("button.btn-edit").click(function () {
     var id = $(this).attr("id");
     selector = "#id" + id;
     score = 'div' + selector + ' ';
     $(score + '.score-first').html('<input name="team_1_score" type="number" min="0" required>');
     $(score + '.score-second').html('<input name="team_2_score" type="number" min="0" required>');
-    $(score + 'button.save').attr("style", "display:block");
-    $(score + 'button.edit').attr("style", "display:none");
+    $(score + 'button.btn-save').attr("style", "display:block");
+    $(score + 'button.btn-edit').attr("style", "display:none");
 });
-
 
 // Submit post on submit
 var form = 'form' + selector;
@@ -28,7 +27,7 @@ $(form).on('submit', function (event) {
 
 // AJAX for posting
 function create_post(match_id) {
-    console.log("create post is working!") // sanity check
+    console.log("create post is working!");  // sanity check
     $.ajax({
         url: "match_score/", // the endpoint
         type: "POST", // http method
@@ -42,7 +41,7 @@ function create_post(match_id) {
         success: function (json) {
             $(score + '.score-first input').attr("disabled", "");
             $(score + '.score-second input').attr("disabled", "");
-            $(score + 'button.save').attr("disabled", "");
+            $(score + 'button.btn-save').attr("disabled", "");
             console.log(json); // log the returned json to the console
             console.log("success"); // another sanity check
         },
@@ -54,12 +53,9 @@ function create_post(match_id) {
             console.log(xhr.status + ": " + xhr.responseText); // provide a bit more info about the error to the console
         }
     });
-};
-
+}
 
 $(function () {
-
-
     // This function gets cookie with a given name
     function getCookie(name) {
         var cookieValue = null;

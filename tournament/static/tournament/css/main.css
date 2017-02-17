@@ -38,7 +38,10 @@
 }
 
 .btn-edit {
-  width: 5%;
+
+}
+.btn-save {
+  display: none;
 }
 
 .main-table-head tr th {
@@ -107,7 +110,7 @@
 
 /* players list */
 div .players-list {
-  box-shadow: 0 0 4px 0px black;
+  box-shadow: 0 0 4px 0 black;
   margin-top: 10px;
   margin-bottom: 10px;
 }
