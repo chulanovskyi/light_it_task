@@ -1,16 +1,16 @@
 {% extends 'tournament/base.html' %}
 {% load static %}
 
-{% block title %}{{ t_name }} | {{ stage.get_mode_display }}{% endblock %}
+{% block title %}{{ template_name }} | {{ stage.get_mode_display }}{% endblock %}
 
 {% block head %}
   <link rel="stylesheet" href={% static "tournament/css/tables.css" %}>
 {% endblock %}
 
 {% block content %}
-<!--<div class="po-header text-center">
+<div class="po-header text-center">
     <h1>{{ tournament.name }}</h1>
-</div>-->
+</div>
 <section id="po-bracket">
   <div class="po-table">
     <div class="po-split po-split-one">
@@ -53,32 +53,32 @@
       <div class="po-round po-round-two">
         <div class="po-round-details">Round 2<br/><span class="po-round-stage">1/4</span></div>
         <ul class="po-matchup">
-          <li class="po-team team-top">&nbsp;<span class="score">&nbsp;</span></li>
-          <li class="po-team team-bottom">&nbsp;<span class="score">&nbsp;</span></li>
+          <li class="po-team team-top"><span class="score"></span></li>
+          <li class="po-team team-bottom"><span class="score"></span></li>
         </ul>
         <ul class="po-matchup">
-          <li class="po-team team-top">&nbsp;<span class="score">&nbsp;</span></li>
-          <li class="po-team team-bottom">&nbsp;<span class="score">&nbsp;</span></li>
+          <li class="po-team team-top"><span class="score"></span></li>
+          <li class="po-team team-bottom"><span class="score"></span></li>
         </ul>
         <ul class="po-matchup">
-          <li class="po-team team-top">&nbsp;<span class="score">&nbsp;</span></li>
-          <li class="po-team team-bottom">&nbsp;<span class="score">&nbsp;</span></li>
+          <li class="po-team team-top"><span class="score"></span></li>
+          <li class="po-team team-bottom"><span class="score"></span></li>
         </ul>
         <ul class="po-matchup">
-          <li class="po-team team-top">&nbsp;<span class="score">&nbsp;</span></li>
-          <li class="po-team team-bottom">&nbsp;<span class="score">&nbsp;</span></li>
+          <li class="po-team team-top"><span class="score"></span></li>
+          <li class="po-team team-bottom"><span class="score"></span></li>
         </ul>
       </div>	<!-- END ROUND TWO -->
 
       <div class="po-round po-round-three">
         <div class="po-round-details">Round 3<br/><span class="po-round-stage">1/2</span></div>
         <ul class="po-matchup">
-          <li class="po-team team-top">&nbsp;<span class="score">&nbsp;</span></li>
-          <li class="po-team team-bottom">&nbsp;<span class="score">&nbsp;</span></li>
+          <li class="po-team team-top"><span class="score"></span></li>
+          <li class="po-team team-bottom"><span class="score"></span></li>
         </ul>
         <ul class="po-matchup">
-          <li class="po-team team-top">&nbsp;<span class="score">&nbsp;</span></li>
-          <li class="po-team team-bottom">&nbsp;<span class="score">&nbsp;</span></li>
+          <li class="po-team team-top"><span class="score"></span></li>
+          <li class="po-team team-bottom"><span class="score"></span></li>
         </ul>
       </div>	<!-- END ROUND THREE -->
     </div>
@@ -89,15 +89,15 @@
         <i class="fa fa-trophy"></i>
         <div class="po-round-details">championship <br/><span class="po-round-stage">Final</span></div>
         <ul class ="po-matchup championship">
-          <li class="po-team team-top">&nbsp;<span class="vote-count">&nbsp;</span></li>
-          <li class="po-team team-bottom">&nbsp;<span class="vote-count">&nbsp;</span></li>
+          <li class="po-team team-top"><span class="vote-count"></span></li>
+          <li class="po-team team-bottom"><span class="vote-count"></span></li>
         </ul>
       </div>
       <div class="semis-l">
         <span class="po-round-stage">Match for 3rd place</span>
         <ul class ="po-matchup championship">
-          <li class="po-team team-top">&nbsp;<span class="vote-count">&nbsp;</span></li>
-          <li class="po-team team-bottom">&nbsp;<span class="vote-count">&nbsp;</span></li>
+          <li class="po-team team-top"><span class="vote-count"></span></li>
+          <li class="po-team team-bottom"><span class="vote-count"></span></li>
         </ul>
       </div>
     </div>

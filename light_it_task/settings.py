@@ -9,7 +9,7 @@ https://docs.djangoproject.com/en/1.10/howto/deployment/checklist/
 import os
 from django.contrib import admin
 
-admin.site.site_url = '/tournament'
+admin.site.site_url = '/'
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SETTINGS_DIR = os.path.dirname(__file__)
@@ -19,6 +19,9 @@ TEMPLATE_PATH = os.path.join(PROJECT_PATH, 'templates')
 
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'tournament/static')
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'tournament/static/tournament'),
+]
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'tournament/media')
@@ -109,10 +112,10 @@ USE_TZ = True
 
 SITE_ID = 1
 
-LOGIN_REDIRECT_URL = '/tournament/'
+LOGIN_REDIRECT_URL = '/'
 
 ACCOUNT_LOGOUT_ON_GET = True
-ACCOUNT_LOGOUT_REDIRECT_URL = '/tournament/'
+ACCOUNT_LOGOUT_REDIRECT_URL = '/'
 ACCOUNT_EMAIL_VERIFICATION = 'none'
 ACCOUNT_SIGNUP_FORM_CLASS = 'tournament.forms.NewPlayer'
 

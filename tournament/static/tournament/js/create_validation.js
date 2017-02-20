@@ -18,7 +18,7 @@ $(function() {
     });
     $form.submit(function() {
         var checkedPlayers = $form.find('[name="players"]:checked');
-        if (checkedPlayers.length < 4) {
+        if (checkedPlayers.length < 2) {
             $err_message.text("Минимум 4 игрока");
             $playersList.before($err_message);
             $playersList.css('color', 'red');
