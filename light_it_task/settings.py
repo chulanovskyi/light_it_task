@@ -91,9 +91,6 @@ DATABASES = {
         'USER': 'cxymbojwyajwll',
         'PASSWORD': '90d249cb7cb1bbde4d3a81ed0ef63b9894db9dbbadb04c1a9449673acef08d49',
         'PORT': '5432',
-        'OPTIONS': {
-            'URI': 'postgres://cxymbojwyajwll:90d249cb7cb1bbde4d3a81ed0ef63b9894db9dbbadb04c1a9449673acef08d49@ec2-46-137-97-169.eu-west-1.compute.amazonaws.com:5432/dfhc251rh19p9g',               
-        },
     }
 }
 
