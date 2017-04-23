@@ -26,9 +26,9 @@ STATICFILES_DIRS = [
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'tournament/media')
 
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = ['localhost', 'skyrocker.pythonanywhere.com']
+ALLOWED_HOSTS = ['localhost', 'skyrocker.pythonanywhere.com', 'tourns.herokuapp.com']
 
 INSTALLED_APPS = [
     'django.contrib.admin',
