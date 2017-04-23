@@ -1,1 +1,1 @@
-web: gunicorn ./light_it_task/wsgi.py
+web: gunicorn --pythonpath tourns tourns.wsgi
