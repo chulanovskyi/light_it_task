@@ -29,7 +29,7 @@ STATICFILES_FINDERS = (
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'tournament/media')
 
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['localhost', 'skyrocker.pythonanywhere.com', 'tourns.herokuapp.com']
 
