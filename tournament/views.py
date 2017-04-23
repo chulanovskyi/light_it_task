@@ -14,7 +14,7 @@ class TournamentList(ListView):
 
     def get_context_data(self, **kwargs):
         context = super(TournamentList, self).get_context_data(**kwargs)
-        context['is_admin'] = self.request.user.groups.\
+        context['is_admin'] = self.request.user.groups. \
             filter(name='tournament_admin').exists()
         if context['is_admin']:
             context['new_tourn_form'] = NewTournament()
@@ -31,7 +31,7 @@ class StageList(ListView):
 
     def get_context_data(self, **kwargs):
         context = super(StageList, self).get_context_data(**kwargs)
-        context['is_admin'] = self.request.user.groups.\
+        context['is_admin'] = self.request.user.groups. \
             filter(name='tournament_admin').exists()
         return context
 
@@ -46,7 +46,7 @@ class MatchesList(ListView):
 
     def get_context_data(self, **kwargs):
         context = super(MatchesList, self).get_context_data(**kwargs)
-        context['is_admin'] = self.request.user.groups.\
+        context['is_admin'] = self.request.user.groups. \
             filter(name='tournament_admin').exists()
         return context
 

@@ -145,6 +145,9 @@ EMAIL_HOST_PASSWORD = 'devil666'
 
 SECRET_KEY = 'u=+5=zvsd9snb+pbid1x9(qje#qa***8hr4ui#kwkf12ylvx^)'
 
+# SECURE_SSL_REDIRECT = True
+# SESSION_COOKIE_SECURE = True
+# SESSION_COOKIE_HTTPONLY = True
 """
 The "Recent Actions" panel in Django Admin displays LogEntry models.
 To clear it you would just delete all the objects:

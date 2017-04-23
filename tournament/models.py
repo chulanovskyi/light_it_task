@@ -114,7 +114,6 @@ class Match(models.Model):
     def second_team_goals(self):
         return self.team_2_score.split(':')[1]
 
-
     class Meta:
         verbose_name_plural = 'matches'
 
