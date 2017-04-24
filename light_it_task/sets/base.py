@@ -3,8 +3,8 @@ from django.contrib import admin
 
 admin.site.site_url = '/'
 
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SETTINGS_DIR = os.path.dirname(__file__)
+BASE_DIR = os.path.dirname(os.path.dirname(SETTINGS_DIR))
 TEMPLATE_PATH = os.path.join(BASE_DIR, 'templates')
 
 
