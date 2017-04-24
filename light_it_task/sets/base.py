@@ -14,7 +14,6 @@ STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
 )
 STATICFILES_DIRS = [
-    os.path.join(PROJECT_ROOT, 'static'),
     os.path.join(PROJECT_ROOT, 'tournament/static'),
 ]
 
