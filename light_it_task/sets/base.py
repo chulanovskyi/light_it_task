@@ -8,14 +8,13 @@ BASE_DIR = os.path.dirname(SETTINGS_DIR)
 PROJECT_ROOT = os.path.dirname(BASE_DIR)
 TEMPLATE_PATH = os.path.join(PROJECT_ROOT, 'templates')
 
-
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(PROJECT_ROOT, 'static')
 STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
 )
 STATICFILES_DIRS = [
-    os.path.join(STATIC_ROOT, 'tournament/static'),
+    os.path.join(PROJECT_ROOT, 'tournament/static'),
 ]
 
 MEDIA_URL = '/media/'
