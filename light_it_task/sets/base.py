@@ -3,7 +3,7 @@ from django.contrib import admin
 # from light_it_task.sets.base import *
 admin.site.site_url = '/'
 
-SETTINGS_DIR = os.path.dirname(os.path.abspath(__file__))
+SETTINGS_DIR = os.path.dirname(__file__)
 BASE_DIR = os.path.dirname(SETTINGS_DIR)
 PROJECT_ROOT = os.path.dirname(BASE_DIR)
 TEMPLATE_PATH = os.path.join(PROJECT_ROOT, 'templates')
