@@ -20,7 +20,7 @@ STATICFILES_DIRS = [
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, '../tournament/media')
 
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['localhost', 'skyrocker.pythonanywhere.com', 'tourns.herokuapp.com']
 
@@ -122,19 +122,9 @@ VK_KEY = 'RVOQtGVScBSHMWqyo1l9'
 FB_ID = 1310090682374732
 FB_KEY = '25947fd470d66a39bf6267a5abb50700'
 
-EMAIL_BACKEND = 'django.core.mail.backends.dummy.EmailBackend'
-EMAIL_USE_SSL = True
-EMAIL_PORT = 465
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_HOST_USER = 'develtasks@gmail.com'
-EMAIL_HOST_PASSWORD = 'devil666'
-
 SECRET_KEY = os.environ['DJANGO_TOURN_KEY']
 
 """
 from django.contrib.admin.models import LogEntry
 LogEntry.objects.all().delete()
-
-accounts:
-coal coal123456
 """
