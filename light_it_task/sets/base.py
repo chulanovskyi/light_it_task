@@ -5,20 +5,20 @@ admin.site.site_url = '/'
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SETTINGS_DIR = os.path.dirname(__file__)
-TEMPLATE_PATH = os.path.join(BASE_DIR, '../templates')
+TEMPLATE_PATH = os.path.join(BASE_DIR, 'templates')
 
 
 STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, '../static')
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
 )
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, '../tournament/static'),
+    os.path.join(BASE_DIR, 'tournament/static'),
 ]
 
 MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, '../tournament/media')
+MEDIA_ROOT = os.path.join(BASE_DIR, 'tournament/media')
 
 DEBUG = False
 
@@ -57,7 +57,7 @@ TEMPLATES = [
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
             TEMPLATE_PATH,
-            os.path.join(BASE_DIR, '../tournament/templates'),
+            os.path.join(BASE_DIR, 'tournament/templates'),
         ],
         'APP_DIRS': True,
         'OPTIONS': {
