@@ -1,24 +1,25 @@
 import os
 from django.contrib import admin
-
+# from light_it_task.sets.base import *
 admin.site.site_url = '/'
 
 SETTINGS_DIR = os.path.dirname(os.path.abspath(__file__))
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-TEMPLATE_PATH = os.path.join(BASE_DIR, 'templates')
+BASE_DIR = os.path.dirname(SETTINGS_DIR)
+PROJECT_ROOT = os.path.dirname(BASE_DIR)
+TEMPLATE_PATH = os.path.join(PROJECT_ROOT, 'templates')
 
 
 STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+STATIC_ROOT = os.path.join(PROJECT_ROOT, 'static')
 STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
 )
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'tournament/static'),
+    os.path.join(STATIC_ROOT, 'tournament/static'),
 ]
 
 MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'tournament/media')
+MEDIA_ROOT = os.path.join(PROJECT_ROOT, 'tournament/media')
 
 DEBUG = False
 
@@ -57,7 +58,7 @@ TEMPLATES = [
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
             TEMPLATE_PATH,
-            os.path.join(BASE_DIR, 'tournament/templates'),
+            os.path.join(PROJECT_ROOT, 'tournament/templates'),
         ],
         'APP_DIRS': True,
         'OPTIONS': {
