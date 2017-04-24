@@ -1,11 +1,3 @@
-"""
-https://docs.djangoproject.com/en/1.10/topics/settings/
-https://docs.djangoproject.com/en/1.10/ref/settings/
-https://docs.djangoproject.com/en/1.10/ref/settings/#auth-password-validators
-https://docs.djangoproject.com/en/1.10/topics/i18n/
-https://docs.djangoproject.com/en/1.10/howto/static-files/
-https://docs.djangoproject.com/en/1.10/howto/deployment/checklist/
-"""
 import os
 from django.contrib import admin
 
@@ -13,18 +5,17 @@ admin.site.site_url = '/'
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SETTINGS_DIR = os.path.dirname(__file__)
-PROJECT_PATH = os.path.abspath(os.path.join(SETTINGS_DIR, os.pardir))
-TEMPLATE_PATH = os.path.join(PROJECT_PATH, 'templates')
+TEMPLATE_PATH = os.path.join(BASE_DIR, 'templates')
 
 
 STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'tournament/static')
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
 )
-"""STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'tournament/static/tournament'),
-]"""
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'tournament/static'),
+]
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'tournament/media')
@@ -150,20 +141,16 @@ EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_HOST_USER = 'develtasks@gmail.com'
 EMAIL_HOST_PASSWORD = 'devil666'
 
-SECRET_KEY = 'u=+5=zvsd9snb+pbid1x9(qje#qa***8hr4ui#kwkf12ylvx^)'
+SECRET_KEY = os.environ['DJANGO_TOURN_KEY']
 
 # SECURE_SSL_REDIRECT = True
 # SESSION_COOKIE_SECURE = True
 # SESSION_COOKIE_HTTPONLY = True
-"""
-The "Recent Actions" panel in Django Admin displays LogEntry models.
-To clear it you would just delete all the objects:
 
+"""
 from django.contrib.admin.models import LogEntry
 LogEntry.objects.all().delete()
-"""
 
-"""
 accounts:
 coal coal123456
 """
