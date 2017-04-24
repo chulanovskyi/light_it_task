@@ -11,6 +11,6 @@ import os
 
 from django.core.wsgi import get_wsgi_application
 
-os.environ.setdefault("DJANGO_SETTINGS_MODULE", "light_it_task.settings")
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "light_it_task.sets.local")
 
 application = get_wsgi_application()

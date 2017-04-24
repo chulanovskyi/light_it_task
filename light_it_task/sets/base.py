@@ -5,20 +5,20 @@ admin.site.site_url = '/'
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SETTINGS_DIR = os.path.dirname(__file__)
-TEMPLATE_PATH = os.path.join(BASE_DIR, 'templates')
+TEMPLATE_PATH = os.path.join(BASE_DIR, '../templates')
 
 
 STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+STATIC_ROOT = os.path.join(BASE_DIR, '../static')
 STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
 )
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'tournament/static'),
+    os.path.join(BASE_DIR, '../tournament/static'),
 ]
 
 MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'tournament/media')
+MEDIA_ROOT = os.path.join(BASE_DIR, '../tournament/media')
 
 DEBUG = True
 
@@ -57,8 +57,7 @@ TEMPLATES = [
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
             TEMPLATE_PATH,
-            os.path.join(BASE_DIR, 'templates'),
-            os.path.join(BASE_DIR, 'tournament/templates'),
+            os.path.join(BASE_DIR, '../tournament/templates'),
         ],
         'APP_DIRS': True,
         'OPTIONS': {
@@ -73,17 +72,6 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'light_it_task.wsgi.application'
-
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'dfhc251rh19p9g',
-        'HOST': 'ec2-46-137-97-169.eu-west-1.compute.amazonaws.com',
-        'USER': 'cxymbojwyajwll',
-        'PASSWORD': '90d249cb7cb1bbde4d3a81ed0ef63b9894db9dbbadb04c1a9449673acef08d49',
-        'PORT': '5432',
-    }
-}
 
 AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend',
@@ -100,7 +88,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'Europe/Kiev'
+TIME_ZONE = 'UTC'
 
 USE_I18N = True
 
@@ -142,10 +130,6 @@ EMAIL_HOST_USER = 'develtasks@gmail.com'
 EMAIL_HOST_PASSWORD = 'devil666'
 
 SECRET_KEY = os.environ['DJANGO_TOURN_KEY']
-
-# SECURE_SSL_REDIRECT = True
-# SESSION_COOKIE_SECURE = True
-# SESSION_COOKIE_HTTPONLY = True
 
 """
 from django.contrib.admin.models import LogEntry
