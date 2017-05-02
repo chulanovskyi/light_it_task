@@ -8,9 +8,9 @@
     <p><strong>{{ name }}</strong></p>
     <p><em>{{ player.email }}</em></p>
     {% if social_ava %}
-      <img style="width: 200px" src="{{ social_ava }}" alt="player ava"/><br/>
+      <img style="width: 200px" src="{{ social_ava }}" alt="player social photo"/><br/>
     {% elif player.photo %}
-      <img style="width: 200px" src="{{ player.photo.url }}" alt="player ava"/><br/>
+      <img style="width: 200px" src="{{ player.photo.url }}" alt="player photo"/><br/>
     {% else %}
       <span class="fa fa-user-circle glyph-m-size"></span>
     {% endif %}

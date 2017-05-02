@@ -55,16 +55,16 @@
           <ul class="nav navbar-nav navbar-right text-center">
             <li><a href="{% url 'profile' %}">
               {% if user.socialaccount_set.all.0.get_avatar_url %}
-                <img src="{{ user.socialaccount_set.all.0.get_avatar_url }}" class="user-ava"/>
+                <img src="{{ user.socialaccount_set.all.0.get_avatar_url }}" class="user-ava" alt="player social ava"/>
               {% elif user.player.photo %}
-                <img src="{{ user.player.photo.url }}" class="user-ava">
+                <img src="{{ user.player.photo.url }}" class="user-ava" alt="player ava"/>
               {% else %}
                 <span class="fa fa-user-circle-o glyph-m-size"></span>
               {% endif %}
               {% firstof user.get_full_name user.username as username %}
               <p>{{ username }}</p>
             </a></li>
-            <li><a href="/accounts/logout">
+            <li><a href="{% url 'account_logout' %}">
               <span class="fa fa-sign-out glyph-m-size"></span>
               <p>Logout</p>
             </a></li>
@@ -95,7 +95,7 @@
           <a href="{% provider_login_url 'vk' %}">
             <span class="fa fa-vk glyph-m-size"></span>
           </a>
-          <a href="/accounts/login"><span class="fa fa-user glyph-m-size"></span></a>
+          <a href="{% url 'account_login' %}"><span class="fa fa-user glyph-m-size"></span></a>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>

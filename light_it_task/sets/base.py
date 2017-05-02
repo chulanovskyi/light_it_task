@@ -33,12 +33,13 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.sites',
-    'tournament',
+    'channels',
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
     'allauth.socialaccount.providers.vk',
     'allauth.socialaccount.providers.facebook',
+    'tournament',
 ]
 
 MIDDLEWARE = [
@@ -87,7 +88,6 @@ AUTH_PASSWORD_VALIDATORS = [
     {'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator'},
 ]
 
-
 LANGUAGE_CODE = 'en-us'
 
 TIME_ZONE = 'UTC'
@@ -126,6 +126,15 @@ FB_KEY = '25947fd470d66a39bf6267a5abb50700'
 
 SECRET_KEY = os.environ['DJANGO_TOURN_KEY']
 
+CHANNEL_LAYERS = {
+    'default': {
+        'BACKEND': 'asgi_redis.RedisChannelLayer',
+        'CONFIG': {
+            'hosts': [os.environ.get('REDIS_URL', 'redis://localhost:6379')]
+        },
+        'ROUTING': 'tournament.routing.channel_routing',
+    },
+}
 """
 from django.contrib.admin.models import LogEntry
 LogEntry.objects.all().delete()

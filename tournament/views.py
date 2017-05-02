@@ -80,8 +80,7 @@ def create_tournament(request):
         new_tournament_id.tournament_id = tournament_form.id
         new_tournament_id.save()
         stage = stage_form.save()
-        round = Round(stage_id=stage.id)
-        round.save()
+        Round.objects.create(stage_id=stage.id)
     return redirect('main')
 
 
@@ -116,7 +115,7 @@ def create_teams(request, tourn_id):
     return redirect('main')
 
 
-def edit_profile(request):
+def profile(request):
     if request.user.is_anonymous:
         return redirect('main')
     player = Player.objects.get(user=request.user)
@@ -168,7 +167,15 @@ def match_score(request, **kwargs):
     score.team_1_score = '{0}:{1}'.format(first_team_id, first_team)
     score.team_2_score = '{0}:{1}'.format(second_team_id, second_team)
     score.save()
-    response_data = {'result': 'Create post successful!'}
-    response_data['score_first_team'] = score.team_1_score
-    response_data['score_second_team'] = score.team_2_score
+    response_data = {
+        'result': 'Create post successful!',
+        'score_first_team': score.team_1_score,
+        'score_second_team': score.team_2_score,
+    }
     return JsonResponse(response_data) or JsonResponse({"nothing to see": "this isn't happening"})
+
+
+def ws_receive(message):
+    message.reply_channel.send({
+        'text': message.content['text'],
+    })
