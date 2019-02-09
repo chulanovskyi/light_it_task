@@ -1,7 +1,6 @@
-# Light IT task
 «WEB интерфейс для управления чемпионатами по настольному футболу»
 
-#### version 0.65 (updates will be available soon)
+#### version 0.65
 
 ---
 ### Prerequisites:
